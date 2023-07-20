@@ -1,20 +1,16 @@
-import { Container } from "react-bootstrap";
-
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import { Container, Heading } from "@chakra-ui/react";
+import Navbar from "./components/header/Navbar";
+import Footer from "./components/footer";
 
 const App = () => {
-    return (
-        <>
-            <Header />
-            <main>
-                <Container>
-                    <h1>Welcome to Proshop</h1>
-                </Container>
-            </main>
-            <Footer/>
-        </>
-    );
+  return (
+    <>
+      <Navbar />
+      <Container as={"main"}>
+        <Heading size={"sm"}>Welcome to ProShop</Heading>
+      </Container>
+      <Footer />
+    </>
+  );
 };
-
 export default App;
