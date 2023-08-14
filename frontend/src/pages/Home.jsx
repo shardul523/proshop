@@ -1,6 +1,6 @@
 import { SimpleGrid, Heading, Text, Container } from "@chakra-ui/react";
 import products from "../products";
-import Product from "../components/Product";
+import ProductItem from "../components/ProductItem";
 
 const Home = () => {
   return (
@@ -8,7 +8,7 @@ const Home = () => {
       <Heading color={"teal.600"}>Latest Products</Heading>
       <SimpleGrid columns={[1, 3, 4, 4, 6]} spacing={5} py={10}>
         {products.map((product) => (
-          <Product product={product} key={product._id} />
+          <ProductItem product={product} key={product._id} />
         ))}
       </SimpleGrid>
     </Container>

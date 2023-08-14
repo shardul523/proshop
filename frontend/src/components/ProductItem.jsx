@@ -8,7 +8,7 @@ import {
 import { Route, Link as RouterLink } from "react-router-dom";
 import Rating from "./Rating";
 
-const Product = ({ product }) => (
+const ProductItem = ({ product }) => (
   <Card maxW={"container.md"}>
     <CardBody
       display={"flex"}
@@ -30,4 +30,4 @@ const Product = ({ product }) => (
   </Card>
 );
 
-export default Product;
+export default ProductItem;
