@@ -2,6 +2,7 @@ import { Container, Grid, GridItem, Heading } from "@chakra-ui/react";
 import Navbar from "./components/header/Navbar";
 import Footer from "./components/footer";
 import Home from "./pages/Home";
+import { Outlet } from "react-router-dom";
 
 const App = () => {
   return (
@@ -10,7 +11,7 @@ const App = () => {
         <Navbar />
       </GridItem>
       <GridItem>
-        <Home />
+        <Outlet />
       </GridItem>
       <GridItem>
         <Footer />
