@@ -1,0 +1,23 @@
+{
+  "name": "proshop",
+  "version": "1.0.0",
+  "description": "An eCommerce web application made using the MERN Stack",
+  "main": "backend/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node backend/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shardul523/proshop.git"
+  },
+  "author": "Shardul Sisodiya",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shardul523/proshop/issues"
+  },
+  "homepage": "https://github.com/shardul523/proshop#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
