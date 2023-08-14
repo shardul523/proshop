@@ -18,13 +18,15 @@ const Navbar = () => {
 
   return (
     <Box as="header" bg={"teal.500"} color={"white"}>
-      <Container as={"nav"}>
+      <Container as={"nav"} maxW={"container.xl"}>
         <Box
           display={"flex"}
           justifyContent={isDesktop ? "space-around" : "space-between"}
           py={2}
         >
-          <Center fontWeight={"bold"}>ProShop</Center>
+          <Center fontWeight={"bold"} fontSize={"xl"}>
+            ProShop
+          </Center>
           {isDesktop && (
             <ButtonGroup>
               <NavLinks />
