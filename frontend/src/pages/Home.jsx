@@ -1,8 +1,23 @@
 import { SimpleGrid, Heading, Text, Container } from "@chakra-ui/react";
-import products from "../products";
 import ProductItem from "../components/ProductItem";
+import { useEffect, useState } from "react";
 
 const Home = () => {
+
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const response = await fetch('http://localhost:8000/api/products');
+      console.log(response)
+      const data = await response.json();
+      console.log(data);
+      setProducts(data)
+    }
+
+    fetchProducts();
+  }, [])
+
   return (
     <Container maxW={"container.lg"}>
       <Heading color={"teal.600"}>Latest Products</Heading>

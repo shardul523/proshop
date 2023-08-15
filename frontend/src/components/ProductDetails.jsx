@@ -10,12 +10,27 @@ import {
   CardBody,
   Button,
 } from "@chakra-ui/react";
-import products from "../products";
 import Rating from "./Rating";
+import { useEffect, useState } from "react";
 
 export default function ProductDetails({ productId }) {
-  const product = products.find((product) => product._id === productId);
-  const inStock = product.countInStock > 0;
+  
+  const [product, setProduct] = useState(null);
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const response = await fetch(`http://localhost:8000/api/product/${productId}`)
+      const data = await response.json();
+      setProduct(data)
+    }
+
+    fetchProduct()
+  }, [productId])
+
+  
+  if (!product) return;
+  
+  const inStock = product?.countInStock > 0;
 
   return (
     <SimpleGrid columns={[1, null, 3]} spacing={10}>

@@ -1,7 +1,6 @@
-import { Container, Grid, GridItem, Heading } from "@chakra-ui/react";
+import { Grid, GridItem } from "@chakra-ui/react";
 import Navbar from "./components/header/Navbar";
 import Footer from "./components/footer";
-import Home from "./pages/Home";
 import { Outlet } from "react-router-dom";
 
 const App = () => {
