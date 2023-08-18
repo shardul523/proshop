@@ -3,20 +3,18 @@ import ProductItem from "../components/ProductItem";
 import { useEffect, useState } from "react";
 
 const Home = () => {
-
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const response = await fetch('http://localhost:8000/api/products');
-      console.log(response)
+      const response = await fetch("http://localhost:8000/api/products");
       const data = await response.json();
       console.log(data);
-      setProducts(data)
-    }
+      setProducts(data);
+    };
 
     fetchProducts();
-  }, [])
+  }, []);
 
   return (
     <Container maxW={"container.lg"}>

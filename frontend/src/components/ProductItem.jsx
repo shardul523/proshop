@@ -15,11 +15,11 @@ const ProductItem = ({ product }) => (
       flexDir={"column"}
       justifyContent={"space-around"}
     >
-      <ChakraLink as={RouterLink} to={`/product/${product._id}`}>
+      <ChakraLink as={RouterLink} to={`/products/${product._id}`}>
         {console.log(product.image)}
         <Image src={product.image} />
       </ChakraLink>
-      <ChakraLink as={RouterLink} to={`/product/${product._id}`}>
+      <ChakraLink as={RouterLink} to={`/products/${product._id}`}>
         <Text color={"teal.600"} fontWeight={"bold"}>
           {product.name}
         </Text>

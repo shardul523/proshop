@@ -14,22 +14,22 @@ import Rating from "./Rating";
 import { useEffect, useState } from "react";
 
 export default function ProductDetails({ productId }) {
-  
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
     const fetchProduct = async () => {
-      const response = await fetch(`http://localhost:8000/api/product/${productId}`)
+      const response = await fetch(
+        `http://localhost:8000/api/products/${productId}`
+      );
       const data = await response.json();
-      setProduct(data)
-    }
+      setProduct(data);
+    };
 
-    fetchProduct()
-  }, [productId])
+    fetchProduct();
+  }, [productId]);
 
-  
   if (!product) return;
-  
+
   const inStock = product?.countInStock > 0;
 
   return (
