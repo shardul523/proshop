@@ -1,15 +1,21 @@
 import { useParams } from "react-router-dom";
-import products from "../products";
+import { useQuery } from "@tanstack/react-query";
 import Rating from "../components/products/Rating";
 import LinkButton from "../components/common/LinkButton";
 import Divider from "../components/common/Divider";
 import ProductStat from "../components/products/ProductStat";
 import Button from "../components/common/Button";
+import { productLoader } from "../services/loaders";
+import Loader from "../components/common/Loader";
 
 function ProductPage() {
   const { productId } = useParams();
+  const { data: currProduct, status } = useQuery({
+    queryKey: ["products", productId],
+    queryFn: () => productLoader(productId),
+  });
 
-  const currProduct = products.find((product) => product._id === productId);
+  if (status === "pending") return <Loader />;
 
   if (!currProduct) return <p>No Product FOund</p>;
 

@@ -1,7 +1,20 @@
+import { useQuery } from "@tanstack/react-query";
+
+import { productsLoader } from "../services/loaders";
+
 import ProductCard from "../components/products/ProductCard";
-import products from "../products";
+import Loader from "../components/common/Loader";
 
 function HomePage() {
+  const { data: products, status } = useQuery({
+    queryKey: ["products"],
+    queryFn: productsLoader,
+  });
+
+  if (status === "pending") return <Loader />;
+
+  if (!products) return <p>No products found</p>;
+
   return (
     <>
       <h1 className="font-semibold text-3xl mt-5 mb-10">Latest Products</h1>
