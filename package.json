@@ -7,11 +7,15 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "nodemon backend/server.js",
     "client": "npm run dev --prefix frontend",
-    "start": "concurrently \"npm run server\" \"npm run client\""
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "data:import": "node backend/seeder.js data:import",
+    "data:destroy": "node backend/seeder.js data:destroy"
   },
   "author": "Shardul Sisodiya",
   "license": "MIT",
   "dependencies": {
+    "@colors/colors": "^1.6.0",
+    "bcrypt": "^5.1.1",
     "express": "^4.18.3",
     "mongoose": "^8.2.2"
   },
