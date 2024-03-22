@@ -13,8 +13,8 @@ function Header() {
   const toggleOpen = () => setIsOpen((prev) => !prev);
 
   return (
-    <header className="bg-slate-800 text-slate-200">
-      <div className="sm:flex justify-between lg:mx-auto max-w-screen-lg px-4 py-3 space-y-7 sm:space-y-0">
+    <header className="bg-primary-600 text-secondary-200">
+      <div className="sm:flex justify-between lg:mx-auto max-w-screen-xl px-4 py-3 space-y-7 sm:space-y-0">
         <div className="flex justify-between items-center">
           <Link to={"/"} className="text-xl flex items-center">
             <img src={logo} alt="brand" /> <span>ProShop</span>

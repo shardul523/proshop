@@ -3,7 +3,7 @@ import Rating from "./Rating";
 
 function ProductCard({ product }) {
   return (
-    <div className=" flex flex-col max-w-56 bg-slate-100 px-4 py-3 rounded-md">
+    <div className=" flex flex-col max-w-56 bg-white px-4 py-3 rounded-md">
       <div className=" align-middle mb-4">
         <img className="h-40 w-48" src={product.image} />
       </div>
