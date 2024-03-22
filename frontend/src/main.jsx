@@ -6,11 +6,15 @@ import {
   createRoutesFromElements,
   RouterProvider,
 } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Provider } from "react-redux";
+
 import App from "./App.jsx";
-import "./index.css";
 import HomePage from "./pages/HomePage.jsx";
 import ProductPage from "./pages/ProductPage.jsx";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+import store from "./store.js";
+import "./index.css";
 
 const queryClient = new QueryClient();
 
@@ -26,7 +30,9 @@ const router = createBrowserRouter(
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
     </QueryClientProvider>
   </React.StrictMode>
 );

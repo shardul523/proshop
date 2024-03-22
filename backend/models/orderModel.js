@@ -10,11 +10,9 @@ const orderItemSchema = new mongoose.Schema({
     type: Number,
     default: 1,
   },
-  itemsPrice: {
+  unitPrice: {
     type: Number,
-    default: function () {
-      return this.product.price * this.quantity;
-    },
+    required: true,
   },
 });
 
@@ -41,6 +39,10 @@ const orderSchema = new mongoose.Schema(
       status: String,
       updateTime: String,
       emailAddress: String,
+    },
+    orderPrice: {
+      type: Number,
+      default: 0,
     },
     taxPrice: {
       type: Number,
@@ -70,6 +72,20 @@ orderSchema.virtual("totalPrice").get(function () {
     this.taxPrice +
     this.shippingPrice
   );
+});
+
+orderSchema.pre("save", function (next) {
+  this.orderPrice = this.orderItems.reduce(
+    (acc, item) => acc + item.unitPrice * item.quantity,
+    0
+  );
+
+  this.taxPrice = Number(this.orderPrice * 0.15).toFixed(2);
+
+  this.shippingPrice = this.orderPrice < 100 ? 0 : 100;
+
+  console.log(this.orderPrice);
+  next();
 });
 
 const Order = mongoose.model("Order", orderSchema);
