@@ -8,7 +8,7 @@ const orderItemSchema = new mongoose.Schema({
   },
   quantity: {
     type: Number,
-    default: 1,
+    required: [true, "Each item should have a specific quantity"],
   },
   unitPrice: {
     type: Number,

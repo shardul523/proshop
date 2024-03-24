@@ -3,10 +3,9 @@ import { useQuery } from "@tanstack/react-query";
 import Rating from "../components/products/Rating";
 import LinkButton from "../components/common/LinkButton";
 import Divider from "../components/common/Divider";
-import ProductStat from "../components/products/ProductStat";
-import Button from "../components/common/Button";
 import { productLoader } from "../services/loaders";
 import Loader from "../components/common/Loader";
+import ProductStatus from "../components/products/ProductStatus";
 
 function ProductPage() {
   const { productId } = useParams();
@@ -48,21 +47,7 @@ function ProductPage() {
         </div>
         <div className="col-span-1" />
         <div className="col-span-3 w-full bg-slate-100 rounded py-3">
-          <ProductStat label={"Price"} value={`$ ${currProduct.price}`} />
-          <Divider />
-          <ProductStat
-            label={"Status"}
-            value={inStock ? "In Stock" : "Out of Stock!"}
-          />
-
-          {inStock && (
-            <>
-              <Divider />
-              <div className="text-center">
-                <Button>Add to Cart</Button>
-              </div>
-            </>
-          )}
+          <ProductStatus inStock={inStock} currProduct={currProduct} />
         </div>
       </div>
     </div>
