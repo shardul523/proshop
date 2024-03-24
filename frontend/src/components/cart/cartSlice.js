@@ -52,4 +52,7 @@ export const { addItem, incrementQtyItem, decrementQtyItem } =
 export const getItemQty = (product) => (state) =>
   state.cart.cart?.find((item) => item.product === product)?.quantity || 0;
 
+export const getAllItemsQty = (state) =>
+  state.cart.cart.reduce((acc, item) => item.quantity + acc, 0);
+
 export default cartSlice.reducer;

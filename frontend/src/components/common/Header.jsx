@@ -6,9 +6,12 @@ import Navbar from "./Navbar";
 import Navlink from "./Navlink";
 import logo from "../../assets/logo.png";
 import { Link } from "react-router-dom";
+import Badge from "./Badge";
+import { useAllItemsQty } from "../../hooks";
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const allQty = useAllItemsQty();
 
   const toggleOpen = () => setIsOpen((prev) => !prev);
 
@@ -23,10 +26,11 @@ function Header() {
         </div>
         <Navbar isOpen={isOpen}>
           <ul className="sm:flex items-center sm:gap-8 space-y-5 sm:space-y-0 ml-3">
-            <li>
+            <li className="relative">
               <Navlink to={"/cart"}>
                 <FaShoppingCart /> Cart
               </Navlink>
+              {allQty > 0 && <Badge>{allQty}</Badge>}
             </li>
             <li>
               <Navlink to={"/sign-in"}>

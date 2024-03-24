@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 
 import Divider from "../common/Divider";
-import ProductQtyInput from "./ProductQtyInput";
+import ProductQtyInput from "../cart/ProductQtyInput";
 import Button from "../common/Button";
 import LinkButton from "../common/LinkButton";
 
