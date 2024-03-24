@@ -18,8 +18,9 @@ function ProductQtyControl({ currProduct }) {
 
   const cartItem = {
     product: currProduct._id,
-    unitPrice: currProduct.price,
-    quantity: qty,
+    price: currProduct.price,
+    name: currProduct.name,
+    image: currProduct.image,
   };
 
   function addToCartHandler() {

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { storeLocalCart } from "../../utils";
+import { decimalFormatter, storeLocalCart } from "../../utils";
 
 const initialState = !localStorage.getItem("cart")
   ? { cart: [] }
@@ -43,10 +43,15 @@ const cartSlice = createSlice({
         storeLocalCart(state.cart);
       },
     },
+
+    deleteItem(state, action) {
+      state.cart = state.cart.filter((item) => item.product !== action.payload);
+      storeLocalCart(state.cart);
+    },
   },
 });
 
-export const { addItem, incrementQtyItem, decrementQtyItem } =
+export const { addItem, incrementQtyItem, decrementQtyItem, deleteItem } =
   cartSlice.actions;
 
 export const getItemQty = (product) => (state) =>
@@ -54,5 +59,10 @@ export const getItemQty = (product) => (state) =>
 
 export const getAllItemsQty = (state) =>
   state.cart.cart.reduce((acc, item) => item.quantity + acc, 0);
+
+export const getTotalSum = (state) =>
+  decimalFormatter(
+    state.cart.cart.reduce((acc, item) => item.quantity * item.price + acc, 0)
+  );
 
 export default cartSlice.reducer;
