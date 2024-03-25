@@ -9,7 +9,7 @@ router
   .get(controllers.user.getUserProfile)
   .patch(controllers.user.updateUserProfile);
 
-router.use(controllers.auth.authorize("admin"));
+router.use(controllers.auth.authorize);
 
 router.route("/").get(controllers.user.getAllUsers);
 

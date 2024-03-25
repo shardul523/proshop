@@ -1,3 +1,4 @@
+const User = require("../models/userModel");
 const { catchAsync } = require("../utils");
 
 /**
@@ -5,17 +6,37 @@ const { catchAsync } = require("../utils");
  * @route    GET /users/profile
  * @access   PRIVATE
  */
-exports.getUserProfile = catchAsync((req, res) => {
-  res.send("Get User Profile");
-});
+exports.getUserProfile = (req, res) => {
+  const user = {
+    name: req.user.name,
+    email: req.user.email,
+    isAdmin: req.user.isAdmin,
+    _id: req.user._id,
+  };
+
+  res.status(200).json({
+    status: "success",
+    data: { user },
+  });
+};
 
 /**
  * @desc     UPDATE THE CURRENT USERS PROFILE
  * @route    PATCH /users/profile
  * @access   PRIVATE
  */
-exports.updateUserProfile = catchAsync((req, res) => {
-  res.send("Update User Profile");
+exports.updateUserProfile = catchAsync(async (req, res) => {
+  const { name, email, password } = req.body;
+  const updateDetails = { name, email };
+
+  if (password) updateDetails.password = password;
+
+  await User.findByIdAndUpdate(req.user._id, updateDetails);
+
+  res.status(200).json({
+    status: "success",
+    data: { message: "User details updated successfully" },
+  });
 });
 
 /**

@@ -16,7 +16,7 @@ const handleValidationErrorDB = (err) => {
 };
 
 const handleDuplicateNameErrorDB = () =>
-  new AppError("Name already taken by another user / tour", 400);
+  new AppError("Name already taken by another user / product", 400);
 
 const sendErrResDev = (err, res) =>
   res.status(err.statusCode).json({
