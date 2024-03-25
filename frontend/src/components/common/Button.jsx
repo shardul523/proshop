@@ -1,7 +1,9 @@
 function Button({ children, className, ...props }) {
   return (
     <button
-      className={`${className} px-3 py-2 rounded text-slate-100 bg-primary-500 hover:bg-primary-400`}
+      className={
+        "mt-5 px-3 py-2 rounded text-secondary-100 bg-primary-500 hover:bg-primary-600 active:bg-primary-700"
+      }
       {...props}
     >
       {children}

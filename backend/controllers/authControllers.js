@@ -92,6 +92,7 @@ exports.protect = catchAsync((req, res, next) => {
 
     if (!user) return next(new AppError("Invalid Token", 404));
 
+    console.log(user.name);
     req.user = user;
 
     next();

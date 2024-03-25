@@ -1,0 +1,6 @@
+{
+  "BASE_URL": "/api/v1",
+  "USER_SIGNIN": "auth/login",
+  "USER_SIGNUP": "auth/signup",
+  "USER_PROFILE": "users/profile"
+}

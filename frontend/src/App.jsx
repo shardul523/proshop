@@ -1,4 +1,5 @@
 import { Outlet } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 
 import Footer from "./components/common/Footer";
 import Header from "./components/common/Header";
@@ -11,6 +12,7 @@ function App() {
         <Outlet />
       </main>
       <Footer />
+      <Toaster />
     </div>
   );
 }
