@@ -1,3 +1,5 @@
-exports.catchAsync = (fn) => (req, res, next) => fn(req, res, next).catch(next);
+exports.catchAsync = (fn) => (req, res, next) => {
+  Promise.resolve(fn(req, res, next)).catch(next);
+};
 
 exports.AppError = require("./AppError");

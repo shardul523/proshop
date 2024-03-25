@@ -1,11 +1,11 @@
 const express = require("express");
 
-const productRouter = require("./routes/productRoutes");
+const rootRouter = require("./routes");
 const errorController = require("./controllers/errorController");
 
 const app = express();
 
-app.use("/api/v1/products", productRouter);
+app.use("/api/v1", rootRouter);
 
 app.use(errorController);
 
