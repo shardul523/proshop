@@ -1,24 +1,27 @@
 import { useRef } from "react";
-import { Link, Navigate, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams, Navigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 import { useSelector } from "react-redux";
 
 import Button from "../components/common/Button";
+import Form from "../components/common/Form";
+import FormContainer from "../components/common/FormContainer";
+import FormInput from "../components/common/FormInput";
+import { useSignup, useProfile } from "../hooks";
 import Loader from "../components/common/Loader";
 
-import { useLogin, useProfile } from "../hooks";
-import FormContainer from "../components/common/FormContainer";
-import Form from "../components/common/Form";
-import FormInput from "../components/common/FormInput";
-
-function SigninPage() {
+function SignupPage() {
   const emailInputRef = useRef();
+  const nameInputRef = useRef();
   const passInputRef = useRef();
-  const { userLogin, status: loginStatus } = useLogin();
+  const confirmPassInputRef = useRef();
+  const { userSignup, status } = useSignup();
+
+  const isCreating = status === "pending";
 
   const { isLoading } = useProfile();
   const auth = useSelector((state) => state.auth);
   const [searchParams] = useSearchParams();
-  const isSubmitting = loginStatus === "pending";
   const redirect = searchParams.has("redirect")
     ? `/${searchParams.get("redirect")}`
     : "/";
@@ -27,17 +30,31 @@ function SigninPage() {
     e.preventDefault();
 
     const email = emailInputRef.current.value;
+    const name = nameInputRef.current.value;
     const password = passInputRef.current.value;
+    const confirmPassword = confirmPassInputRef.current.value;
 
-    userLogin({ email, password });
+    if (!email || !name || !password || !confirmPassword)
+      return toast.error("Each of the fields must be specified");
+
+    if (password !== confirmPassword)
+      return toast.error("Passwords do not match");
+
+    userSignup({ email, name, password });
   };
 
   if (isLoading) return <Loader />;
   if (auth && auth.isLoggedIn) return <Navigate to={redirect} />;
 
   return (
-    <FormContainer formTitle={"Sign In"}>
+    <FormContainer formTitle={"Sign Up"}>
       <Form onSubmit={onSubmitHandler}>
+        <FormInput
+          label={"Name"}
+          inputRef={nameInputRef}
+          required
+          placeholder={"Enter name"}
+        />
         <FormInput
           label={"Email Address"}
           inputRef={emailInputRef}
@@ -52,13 +69,20 @@ function SigninPage() {
           placeholder={"Enter password"}
           type="password"
         />
-        <Button disabled={isSubmitting}>Sign In</Button>
+        <FormInput
+          label={"Confirm Password"}
+          inputRef={confirmPassInputRef}
+          required
+          placeholder={"Confirm password"}
+          type="password"
+        />
+        <Button disabled={isCreating}>Sign Up</Button>
       </Form>
       <div className="mt-5 text-secondary-700">
-        New Customer ? Register{" "}
+        Already registered ? Sign in{" "}
         <Link
           className={"text-primary-500 hover:text-primary-600 hover:underline"}
-          to={"/sign-up"}
+          to={"/sign-in"}
         >
           here
         </Link>
@@ -66,4 +90,4 @@ function SigninPage() {
     </FormContainer>
   );
 }
-export default SigninPage;
+export default SignupPage;

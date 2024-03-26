@@ -4,7 +4,7 @@ import { toast } from "react-hot-toast";
 
 import { authenticate, unauthenticate } from "../components/user/authSlice";
 import { getItemQty, getAllItemsQty } from "../components/cart/cartSlice";
-import { getUserProfile, login } from "../services/authApi";
+import { getUserProfile, login, signup } from "../services/authApi";
 import { useEffect } from "react";
 
 export const useItemQty = (item) => useSelector(getItemQty(item));
@@ -26,6 +26,23 @@ export const useLogin = () => {
   });
 
   return { userLogin, status };
+};
+
+export const useSignup = () => {
+  const dispatch = useDispatch();
+
+  const { mutate: userSignup, status } = useMutation({
+    mutationFn: signup,
+    onSuccess: () => {
+      toast.success("User Signed up successfully");
+      dispatch(authenticate());
+    },
+    onError: () => {
+      toast.error("User could not be signed up");
+    },
+  });
+
+  return { userSignup, status };
 };
 
 export const useProfile = () => {

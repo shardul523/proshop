@@ -8,11 +8,12 @@ import { Provider } from "react-redux";
 import App from "./App.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import ProductPage from "./pages/ProductPage.jsx";
+import CartPage from "./pages/CartPage.jsx";
+import SigninPage from "./pages/SigninPage.jsx";
+import SignupPage from "./pages/SignupPage.jsx";
 
 import store from "./store.js";
 import "./index.css";
-import CartPage from "./pages/CartPage.jsx";
-import SigninPage from "./pages/SigninPage.jsx";
 
 const queryClient = new QueryClient();
 
@@ -28,6 +29,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
               <Route path="/products/:productId" element={<ProductPage />} />
               <Route path="/cart" element={<CartPage />} />
               <Route path="/sign-in" element={<SigninPage />} />
+              <Route path="/sign-up" element={<SignupPage />} />
             </Route>
           </Routes>
         </BrowserRouter>
