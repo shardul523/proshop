@@ -13,7 +13,7 @@ function CartPage() {
   const allItemsSum = useSelector(getTotalSum);
 
   return (
-    <div className="lg:grid lg:flex-none flex flex-col grid-cols-5 gap-5">
+    <div className="lg:grid lg:flex-none flex flex-col grid-cols-5 gap-5 w-full">
       <div className="col-span-3 flex flex-col gap-5">
         <h1 className="text-3xl font-semibold">Shopping Cart</h1>
         <Table>

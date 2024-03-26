@@ -8,7 +8,7 @@ function App() {
   return (
     <div className=" grid grid-rows-[auto_1fr_auto] min-h-screen">
       <Header />
-      <main className="my-5 overflow-auto px-10">
+      <main className="my-5 overflow-auto px-10 mx-auto max-w-screen-xl w-screen">
         <Outlet />
       </main>
       <Footer />

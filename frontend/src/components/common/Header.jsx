@@ -27,7 +27,7 @@ function Header() {
           <Hamburger isOpen={isOpen} toggleOpen={toggleOpen} />
         </div>
         <Navbar isOpen={isOpen}>
-          <ul className="sm:flex items-center sm:gap-8 space-y-5 sm:space-y-0 ml-3">
+          <ul className="flex flex-col sm:flex-row items-start sm:items-center sm:gap-8 space-y-5 sm:space-y-0 ml-3">
             <li className="relative">
               <Navlink to={"/cart"}>
                 <FaShoppingCart /> Cart

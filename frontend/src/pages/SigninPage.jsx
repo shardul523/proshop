@@ -16,7 +16,7 @@ function SigninPage() {
   const [searchParams] = useSearchParams();
 
   const redirect = searchParams.has("redirect")
-    ? searchParams.get("redirect")
+    ? `/${searchParams.get("redirect")}`
     : "/";
 
   const onSubmitHandler = (e) => {
@@ -29,7 +29,7 @@ function SigninPage() {
   };
 
   if (isLoading) return <Loader />;
-  if (auth && auth.isLoggedIn) return <Navigate to={`/${redirect}`} />;
+  if (auth && auth.isLoggedIn) return <Navigate to={redirect} />;
 
   return (
     <div className="container max-w-md mx-auto">
