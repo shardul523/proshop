@@ -31,7 +31,9 @@ function CartPage() {
           </div>
           <Divider />
           <div className="bg-secondary-100 text-primary-600 p-2">
-            <LinkButton>Proceed to Checkout</LinkButton>
+            <LinkButton to={"/sign-in?redirect=shipping"}>
+              Proceed to Checkout
+            </LinkButton>
           </div>
         </div>
       </div>

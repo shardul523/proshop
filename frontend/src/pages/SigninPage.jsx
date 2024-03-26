@@ -1,20 +1,23 @@
 import { useRef } from "react";
-import { toast } from "react-hot-toast";
 import { Navigate, useSearchParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import Button from "../components/common/Button";
 import Loader from "../components/common/Loader";
 
-import { useLogin } from "../hooks";
+import { useLogin, useProfile } from "../hooks";
 
 function SigninPage() {
   const emailInputRef = useRef();
   const passInputRef = useRef();
   const { userLogin } = useLogin();
+  const { isLoading } = useProfile();
+  const auth = useSelector((state) => state.auth);
+  const [searchParams] = useSearchParams();
 
-  console.log(document.cookie.jwt);
-
-  const redirect = "/";
+  const redirect = searchParams.has("redirect")
+    ? searchParams.get("redirect")
+    : "/";
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
@@ -22,18 +25,11 @@ function SigninPage() {
     const email = emailInputRef.current.value;
     const password = passInputRef.current.value;
 
-    userLogin(
-      { email, password },
-      {
-        onSuccess: () => {
-          toast.success("User logged in successfully");
-        },
-        onError: () => {
-          toast.error("User could not be logged in");
-        },
-      }
-    );
+    userLogin({ email, password });
   };
+
+  if (isLoading) return <Loader />;
+  if (auth && auth.isLoggedIn) return <Navigate to={`/${redirect}`} />;
 
   return (
     <div className="container max-w-md mx-auto">

@@ -66,7 +66,9 @@ exports.logout = catchAsync((req, res) => {
     secure: process.env.NODE_ENV === "production",
   });
 
-  res.status(204);
+  res.status(200).json({
+    status: "Logout successful",
+  });
 });
 
 /**
@@ -92,7 +94,7 @@ exports.protect = catchAsync((req, res, next) => {
 
     if (!user) return next(new AppError("Invalid Token", 404));
 
-    console.log(user.name);
+    console.log("User authenticated");
     req.user = user;
 
     next();

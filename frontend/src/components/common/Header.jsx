@@ -7,11 +7,13 @@ import Navlink from "./Navlink";
 import logo from "../../assets/logo.png";
 import { Link } from "react-router-dom";
 import Badge from "./Badge";
-import { useAllItemsQty } from "../../hooks";
+import { useAllItemsQty, useProfile } from "../../hooks";
+import UserNav from "../user/UserNav";
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const allQty = useAllItemsQty();
+  const { auth, user } = useProfile();
 
   const toggleOpen = () => setIsOpen((prev) => !prev);
 
@@ -33,9 +35,12 @@ function Header() {
               {allQty > 0 && <Badge>{allQty}</Badge>}
             </li>
             <li>
-              <Navlink to={"/sign-in"}>
-                <FaUser /> Sign In
-              </Navlink>
+              {!auth?.isLoggedIn && (
+                <Navlink to={"/sign-in"}>
+                  <FaUser /> Sign In
+                </Navlink>
+              )}
+              {auth?.isLoggedIn && user && <UserNav name={user.name} />}
             </li>
           </ul>
         </Navbar>
