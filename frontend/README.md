@@ -1,8 +1,8 @@
-# React + Vite
+# ProShop
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A single vendor e-commerce application made using the MERN stack.
 
-Currently, two official plugins are available:
+## Current list of improvements planned
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Transition between pages
+- Saving multiple shipping addresses

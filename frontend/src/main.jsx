@@ -14,6 +14,7 @@ import SignupPage from "./pages/SignupPage.jsx";
 
 import store from "./store.js";
 import "./index.css";
+import ShippingAddressPage from "./pages/ShippingAddressPage.jsx";
 
 const queryClient = new QueryClient();
 
@@ -30,6 +31,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
               <Route path="/cart" element={<CartPage />} />
               <Route path="/sign-in" element={<SigninPage />} />
               <Route path="/sign-up" element={<SignupPage />} />
+              <Route path="/shipping" element={<ShippingAddressPage />} />
             </Route>
           </Routes>
         </BrowserRouter>

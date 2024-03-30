@@ -1,17 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { decimalFormatter, storeLocalCart } from "../../utils";
 
-const initialState = !localStorage.getItem("cart")
-  ? { cart: [] }
-  : JSON.parse(localStorage.getItem("cart"));
+const initialState = !localStorage.getItem("state")
+  ? { cartItems: [], shippingAddress: {}, paymentMethod: "PayPal" }
+  : JSON.parse(localStorage.getItem("state"));
 
 const cartSlice = createSlice({
   initialState,
   name: "cart",
   reducers: {
     addItem(state, action) {
-      state.cart.push({ ...action.payload, quantity: 1 });
-      storeLocalCart(state.cart);
+      state.cartItems.push({ ...action.payload, quantity: 1 });
+      storeLocalCart({ ...state });
     },
 
     incrementQtyItem: {
@@ -20,10 +20,12 @@ const cartSlice = createSlice({
       },
       reducer: (state, action) => {
         const { product, max } = action.payload;
-        const currItem = state.cart.find((item) => item.product === product);
+        const currItem = state.cartItems.find(
+          (item) => item.product === product
+        );
         if (!currItem || currItem.quantity >= max) return;
         currItem.quantity++;
-        storeLocalCart(state.cart);
+        storeLocalCart(state);
       },
     },
 
@@ -33,36 +35,55 @@ const cartSlice = createSlice({
       },
       reducer: (state, action) => {
         const { product } = action.payload;
-        const currItem = state.cart.find((item) => item.product === product);
+        const currItem = state.cartItems.find(
+          (item) => item.product === product
+        );
         if (!currItem) return;
         if (currItem.quantity === 1) {
-          state.cart = state.cart.filter((item) => item.product !== product);
+          state.cart = state.cartItems.filter(
+            (item) => item.product !== product
+          );
         } else {
           currItem.quantity--;
         }
-        storeLocalCart(state.cart);
+        storeLocalCart(state);
       },
     },
 
     deleteItem(state, action) {
-      state.cart = state.cart.filter((item) => item.product !== action.payload);
-      storeLocalCart(state.cart);
+      state.cartItems = state.cartItems.filter(
+        (item) => item.product !== action.payload
+      );
+      storeLocalCart(state);
+    },
+
+    saveShippingAddress(state, action) {
+      state.shippingAddress = action.payload;
+      storeLocalCart(state);
     },
   },
 });
 
-export const { addItem, incrementQtyItem, decrementQtyItem, deleteItem } =
-  cartSlice.actions;
+export const {
+  addItem,
+  incrementQtyItem,
+  decrementQtyItem,
+  deleteItem,
+  saveShippingAddress,
+} = cartSlice.actions;
 
 export const getItemQty = (product) => (state) =>
-  state.cart.cart?.find((item) => item.product === product)?.quantity || 0;
+  state.cart.cartItems?.find((item) => item.product === product)?.quantity || 0;
 
 export const getAllItemsQty = (state) =>
-  state.cart.cart.reduce((acc, item) => item.quantity + acc, 0);
+  state.cart.cartItems?.reduce((acc, item) => item.quantity + acc, 0);
 
 export const getTotalSum = (state) =>
   decimalFormatter(
-    state.cart.cart.reduce((acc, item) => item.quantity * item.price + acc, 0)
+    state.cart.cartItems?.reduce(
+      (acc, item) => item.quantity * item.price + acc,
+      0
+    )
   );
 
 export default cartSlice.reducer;

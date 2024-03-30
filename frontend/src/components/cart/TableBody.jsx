@@ -2,10 +2,10 @@ import { useSelector } from "react-redux";
 import TableRow from "./TableRow";
 
 function TableBody() {
-  const cart = useSelector((state) => state.cart.cart);
+  const cartItems = useSelector((state) => state.cart.cartItems);
   return (
     <tbody className="text-center ">
-      {cart.map((item) => (
+      {cartItems.map((item) => (
         <TableRow item={item} key={item.product} />
       ))}
     </tbody>

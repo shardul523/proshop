@@ -1,5 +1,5 @@
-export function storeLocalCart(cart) {
-  localStorage.setItem("cart", JSON.stringify({ cart }));
+export function storeLocalCart(state) {
+  localStorage.setItem("state", JSON.stringify(state));
 }
 
 export function decimalFormatter(num) {
