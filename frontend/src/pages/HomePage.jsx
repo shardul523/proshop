@@ -4,6 +4,7 @@ import { productsLoader } from "../services/loaders";
 
 import ProductCard from "../components/products/ProductCard";
 import Loader from "../components/common/Loader";
+import Container from "../components/common/Container";
 
 function HomePage() {
   const { data: products, status } = useQuery({
@@ -16,7 +17,7 @@ function HomePage() {
   if (!products) return <p>No products found</p>;
 
   return (
-    <>
+    <Container>
       <h1 className="font-semibold text-3xl mt-5 mb-10 lg:mx-0 mx-4">
         Latest Products
       </h1>
@@ -25,7 +26,7 @@ function HomePage() {
           <ProductCard key={product._id} product={product} />
         ))}
       </div>
-    </>
+    </Container>
   );
 }
 

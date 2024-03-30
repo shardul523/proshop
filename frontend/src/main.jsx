@@ -11,10 +11,12 @@ import ProductPage from "./pages/ProductPage.jsx";
 import CartPage from "./pages/CartPage.jsx";
 import SigninPage from "./pages/SigninPage.jsx";
 import SignupPage from "./pages/SignupPage.jsx";
+import ShippingAddressPage from "./pages/ShippingAddressPage.jsx";
+import PrivateRoute from "./routes/PrivateRoute.jsx";
 
 import store from "./store.js";
 import "./index.css";
-import ShippingAddressPage from "./pages/ShippingAddressPage.jsx";
+import PaymentPage from "./pages/PaymentPage.jsx";
 
 const queryClient = new QueryClient();
 
@@ -31,7 +33,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
               <Route path="/cart" element={<CartPage />} />
               <Route path="/sign-in" element={<SigninPage />} />
               <Route path="/sign-up" element={<SignupPage />} />
-              <Route path="/shipping" element={<ShippingAddressPage />} />
+              <Route path="" element={<PrivateRoute />}>
+                <Route path="/shipping" element={<ShippingAddressPage />} />
+                <Route path="/payment" element={<PaymentPage />} />
+              </Route>
             </Route>
           </Routes>
         </BrowserRouter>

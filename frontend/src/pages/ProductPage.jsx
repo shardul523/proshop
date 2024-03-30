@@ -1,11 +1,14 @@
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+
+import Container from "../components/common/Container";
 import Rating from "../components/products/Rating";
 import LinkButton from "../components/common/LinkButton";
 import Divider from "../components/common/Divider";
-import { productLoader } from "../services/loaders";
 import Loader from "../components/common/Loader";
 import ProductStatus from "../components/products/ProductStatus";
+
+import { productLoader } from "../services/loaders";
 
 function ProductPage() {
   const { productId } = useParams();
@@ -21,10 +24,8 @@ function ProductPage() {
   const inStock = currProduct.countInStock > 0;
 
   return (
-    <div>
-      <LinkButton className={"mx-2 my-2"} to={"/"}>
-        Go Back
-      </LinkButton>
+    <Container>
+      <LinkButton to={"/"}>Go Back</LinkButton>
       <div className="flex flex-col items-center lg:grid grid-cols-12">
         <div className="col-span-3 p-2 rounded-md bg-slate-100 md:w-96 lg:w-full w-80">
           <img className="rounded-md" alt="product" src={currProduct.image} />
@@ -50,7 +51,7 @@ function ProductPage() {
           <ProductStatus inStock={inStock} currProduct={currProduct} />
         </div>
       </div>
-    </div>
+    </Container>
   );
 }
 export default ProductPage;
