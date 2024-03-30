@@ -1,20 +1,59 @@
+import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 import CheckoutSteps from "../components/order/CheckoutSteps";
 import FormContainer from "../components/common/FormContainer";
+import Form from "../components/common/Form";
+import FormRadioInput from "../components/common/FormRadioInput";
 import CheckoutContainer from "../components/order/CheckoutContainer";
 import Button from "../components/common/Button";
 
+import { savePaymentMethod } from "../components/cart/cartSlice";
+
 function PaymentPage() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const currPaymentMethod = useSelector((state) => state.cart.paymentMethod);
+  const [selectedOption, setSelectedOption] = useState(currPaymentMethod);
+
+  function handleChange(event) {
+    setSelectedOption(event.target.value);
+  }
+
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+
+    dispatch(savePaymentMethod(selectedOption));
+
+    navigate("/place-order");
+  };
+
   return (
     <CheckoutContainer>
       <CheckoutSteps currStep={2} />
       <FormContainer formTitle={"Payment Method"}>
-        <form className="mt-5">
-          <div className="space-x-2">
-            <input type="radio" id="paypal" value={"paypal"} />
-            <label htmlFor="paypal">PayPal</label>
+        <Form onSubmit={onSubmitHandler}>
+          <div className="flex gap-10 flex-wrap ml-3">
+            <FormRadioInput
+              label={"PayPal"}
+              value={"PayPal"}
+              name={"payment"}
+              selectedOption={selectedOption}
+              handleChange={handleChange}
+            />
+            <FormRadioInput
+              label={"Net Banking"}
+              value={"NetBanking"}
+              name={"payment"}
+              selectedOption={selectedOption}
+              handleChange={handleChange}
+            />
           </div>
-          <Button>Continue</Button>
-        </form>
+          <div>
+            <Button type="submit">Continue</Button>
+          </div>
+        </Form>
       </FormContainer>
     </CheckoutContainer>
   );

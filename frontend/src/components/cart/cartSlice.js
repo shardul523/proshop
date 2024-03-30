@@ -61,6 +61,11 @@ const cartSlice = createSlice({
       state.shippingAddress = action.payload;
       storeLocalCart(state);
     },
+
+    savePaymentMethod(state, action) {
+      state.paymentMethod = action.payload;
+      storeLocalCart(state);
+    },
   },
 });
 
@@ -70,6 +75,7 @@ export const {
   decrementQtyItem,
   deleteItem,
   saveShippingAddress,
+  savePaymentMethod,
 } = cartSlice.actions;
 
 export const getItemQty = (product) => (state) =>
