@@ -44,7 +44,7 @@ function PaymentPage() {
             />
             <FormRadioInput
               label={"Net Banking"}
-              value={"NetBanking"}
+              value={"Net Banking"}
               name={"payment"}
               selectedOption={selectedOption}
               handleChange={handleChange}

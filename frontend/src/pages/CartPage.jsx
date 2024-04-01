@@ -8,7 +8,6 @@ import Divider from "../components/common/Divider";
 import LinkButton from "../components/common/LinkButton";
 
 function CartPage() {
-  const headings = ["", "Name", "Price", "Quantity", "Total", ""];
   const allCartItems = useSelector(getAllItemsQty);
   const allItemsSum = useSelector(getTotalSum);
 
@@ -17,8 +16,8 @@ function CartPage() {
       <div className="col-span-3 flex flex-col gap-5">
         <h1 className="text-3xl font-semibold">Shopping Cart</h1>
         <Table>
-          <TableHeader headings={headings} />
-          <TableBody orderItems={[{ product: 1 }, { product: 2 }]} />
+          <TableHeader />
+          <TableBody />
         </Table>
       </div>
       <div className="col-span-2">

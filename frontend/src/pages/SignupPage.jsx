@@ -7,8 +7,9 @@ import Button from "../components/common/Button";
 import Form from "../components/common/Form";
 import FormContainer from "../components/common/FormContainer";
 import FormInput from "../components/common/FormInput";
-import { useSignup, useProfile } from "../hooks";
 import Loader from "../components/common/Loader";
+
+import { useSignup, useProfile } from "../hooks";
 
 function SignupPage() {
   const emailInputRef = useRef();
@@ -47,47 +48,53 @@ function SignupPage() {
   if (auth && auth.isLoggedIn) return <Navigate to={redirect} />;
 
   return (
-    <FormContainer formTitle={"Sign Up"}>
-      <Form onSubmit={onSubmitHandler}>
-        <FormInput
-          label={"Name"}
-          inputRef={nameInputRef}
-          required
-          placeholder={"Enter name"}
-        />
-        <FormInput
-          label={"Email Address"}
-          inputRef={emailInputRef}
-          required
-          placeholder={"Enter email"}
-          type="email"
-        />
-        <FormInput
-          label={"Password"}
-          inputRef={passInputRef}
-          required
-          placeholder={"Enter password"}
-          type="password"
-        />
-        <FormInput
-          label={"Confirm Password"}
-          inputRef={confirmPassInputRef}
-          required
-          placeholder={"Confirm password"}
-          type="password"
-        />
-        <Button disabled={isCreating}>Sign Up</Button>
-      </Form>
-      <div className="mt-5 text-secondary-700">
-        Already registered ? Sign in{" "}
-        <Link
-          className={"text-primary-500 hover:text-primary-600 hover:underline"}
-          to={"/sign-in"}
-        >
-          here
-        </Link>
-      </div>
-    </FormContainer>
+    <div className="w-full max-w-96 mx-auto px-2">
+      <FormContainer formTitle={"Sign Up"}>
+        <Form onSubmit={onSubmitHandler}>
+          <FormInput
+            label={"Name"}
+            inputRef={nameInputRef}
+            required
+            placeholder={"Enter name"}
+          />
+          <FormInput
+            label={"Email Address"}
+            inputRef={emailInputRef}
+            required
+            placeholder={"Enter email"}
+            type="email"
+          />
+          <FormInput
+            label={"Password"}
+            inputRef={passInputRef}
+            required
+            placeholder={"Enter password"}
+            type="password"
+          />
+          <FormInput
+            label={"Confirm Password"}
+            inputRef={confirmPassInputRef}
+            required
+            placeholder={"Confirm password"}
+            type="password"
+          />
+          <div className="flex flex-row-reverse">
+            <Button disabled={isCreating}>Sign Up</Button>
+          </div>
+        </Form>
+        <div className="mt-5 text-secondary-700">
+          Already registered ? Sign in{" "}
+          <Link
+            className={
+              "text-primary-500 hover:text-primary-600 hover:underline"
+            }
+            to={"/sign-in"}
+          >
+            here
+          </Link>
+        </div>
+      </FormContainer>
+    </div>
   );
 }
 export default SignupPage;

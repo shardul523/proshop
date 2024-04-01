@@ -80,9 +80,9 @@ orderSchema.pre("save", function (next) {
     0
   );
 
-  this.taxPrice = Number(this.orderPrice * 0.15).toFixed(2);
+  this.taxPrice = +(Math.round(this.orderPrice * 15) / 100).toFixed(2);
 
-  this.shippingPrice = this.orderPrice < 100 ? 0 : 100;
+  this.shippingPrice = this.orderPrice < 100 ? 30 : 0;
 
   console.log(this.orderPrice);
   next();

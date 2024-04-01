@@ -1,4 +1,4 @@
-const { Order } = require("../models");
+const Order = require("../models/orderModel");
 const { AppError, catchAsync } = require("../utils");
 
 /**
@@ -7,8 +7,11 @@ const { AppError, catchAsync } = require("../utils");
  * @access  PRIVATE
  */
 exports.createNewOrder = catchAsync(async (req, res, next) => {
-  const { orderItems, shippingAddress, paymentMethod } = req.body;
+  const { cart } = req.body;
+  const { cartItems: orderItems, shippingAddress, paymentMethod } = cart;
   const user = req.user._id;
+
+  // console.log(orderItems, shippingAddress, paymentMethod);
 
   if (!orderItems || orderItems.length === 0)
     return next(new AppError("No order items found!", 400));

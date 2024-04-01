@@ -13,10 +13,11 @@ import SigninPage from "./pages/SigninPage.jsx";
 import SignupPage from "./pages/SignupPage.jsx";
 import ShippingAddressPage from "./pages/ShippingAddressPage.jsx";
 import PrivateRoute from "./routes/PrivateRoute.jsx";
+import PaymentPage from "./pages/PaymentPage.jsx";
+import PlaceOrder from "./pages/PlaceOrder.jsx";
 
 import store from "./store.js";
 import "./index.css";
-import PaymentPage from "./pages/PaymentPage.jsx";
 
 const queryClient = new QueryClient();
 
@@ -36,6 +37,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
               <Route path="" element={<PrivateRoute />}>
                 <Route path="/shipping" element={<ShippingAddressPage />} />
                 <Route path="/payment" element={<PaymentPage />} />
+                <Route path="/place-order" element={<PlaceOrder />} />
               </Route>
             </Route>
           </Routes>

@@ -4,11 +4,11 @@ import { useSelector } from "react-redux";
 
 import Button from "../components/common/Button";
 import Loader from "../components/common/Loader";
-
-import { useLogin, useProfile } from "../hooks";
 import FormContainer from "../components/common/FormContainer";
 import Form from "../components/common/Form";
 import FormInput from "../components/common/FormInput";
+
+import { useLogin, useProfile } from "../hooks";
 
 function SigninPage() {
   const emailInputRef = useRef();
@@ -36,34 +36,40 @@ function SigninPage() {
   if (auth && auth.isLoggedIn) return <Navigate to={redirect} />;
 
   return (
-    <FormContainer formTitle={"Sign In"}>
-      <Form onSubmit={onSubmitHandler}>
-        <FormInput
-          label={"Email Address"}
-          inputRef={emailInputRef}
-          required
-          placeholder={"Enter email"}
-          type="email"
-        />
-        <FormInput
-          label={"Password"}
-          inputRef={passInputRef}
-          required
-          placeholder={"Enter password"}
-          type="password"
-        />
-        <Button disabled={isSubmitting}>Sign In</Button>
-      </Form>
-      <div className="mt-5 text-secondary-700">
-        New Customer ? Register{" "}
-        <Link
-          className={"text-primary-500 hover:text-primary-600 hover:underline"}
-          to={"/sign-up"}
-        >
-          here
-        </Link>
-      </div>
-    </FormContainer>
+    <div className="w-full max-w-96 mx-auto px-2">
+      <FormContainer formTitle={"Sign In"}>
+        <Form onSubmit={onSubmitHandler}>
+          <FormInput
+            label={"Email Address"}
+            inputRef={emailInputRef}
+            required
+            placeholder={"Enter email"}
+            type="email"
+          />
+          <FormInput
+            label={"Password"}
+            inputRef={passInputRef}
+            required
+            placeholder={"Enter password"}
+            type="password"
+          />
+          <div className="flex flex-row-reverse">
+            <Button disabled={isSubmitting}>Sign In</Button>
+          </div>
+        </Form>
+        <div className="mt-5 text-secondary-700">
+          New Customer ? Register{" "}
+          <Link
+            className={
+              "text-primary-500 hover:text-primary-600 hover:underline"
+            }
+            to={"/sign-up"}
+          >
+            here
+          </Link>
+        </div>
+      </FormContainer>
+    </div>
   );
 }
 export default SigninPage;

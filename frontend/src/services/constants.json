@@ -3,5 +3,6 @@
   "USER_SIGNIN": "auth/login",
   "USER_SIGNUP": "auth/signup",
   "USER_PROFILE": "users/profile",
-  "LOGOUT": "auth/logout"
+  "LOGOUT": "auth/logout",
+  "CREATE_ORDER": "orders"
 }

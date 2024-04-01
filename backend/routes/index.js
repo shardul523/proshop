@@ -8,6 +8,6 @@ const ordersRouter = require("./orderRoutes");
 router.use("/auth", authRouter);
 router.use("/users", usersRouter);
 router.use("/products", productsRouter);
-router.use("/order", ordersRouter);
+router.use("/orders", ordersRouter);
 
 module.exports = router;

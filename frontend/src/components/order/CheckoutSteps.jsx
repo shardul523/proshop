@@ -3,7 +3,9 @@ import LinkButton from "../common/LinkButton";
 function CheckoutSteps({ currStep }) {
   return (
     <nav className="flex mb-5 items-center">
-      <LinkButton variant={"pill"}>Shipping</LinkButton>
+      <LinkButton variant={"pill"} to={"/shipping"}>
+        Shipping
+      </LinkButton>
       <div
         className={`flex-1 ${
           currStep < 2 ? "bg-secondary-300" : "bg-primary-500"
@@ -11,6 +13,7 @@ function CheckoutSteps({ currStep }) {
       />
       <LinkButton
         disabled={currStep < 2}
+        to={"/payment"}
         variant={currStep < 2 ? "pillDisabled" : "pill"}
       >
         Payment

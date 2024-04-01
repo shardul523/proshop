@@ -10,7 +10,11 @@ const cartSlice = createSlice({
   name: "cart",
   reducers: {
     addItem(state, action) {
-      state.cartItems.push({ ...action.payload, quantity: 1 });
+      state.cartItems.push({
+        ...action.payload,
+        quantity: 1,
+        unitPrice: action.payload.price,
+      });
       storeLocalCart({ ...state });
     },
 
@@ -66,6 +70,11 @@ const cartSlice = createSlice({
       state.paymentMethod = action.payload;
       storeLocalCart(state);
     },
+
+    clearCart(state) {
+      state.cartItems = [];
+      storeLocalCart(state);
+    },
   },
 });
 
@@ -76,6 +85,7 @@ export const {
   deleteItem,
   saveShippingAddress,
   savePaymentMethod,
+  clearCart,
 } = cartSlice.actions;
 
 export const getItemQty = (product) => (state) =>
