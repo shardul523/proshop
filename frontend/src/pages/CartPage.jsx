@@ -1,23 +1,24 @@
 import { useSelector } from "react-redux";
 
-import Table from "../components/cart/Table";
-import TableHeader from "../components/cart/TableHeader";
-import TableBody from "../components/cart/TableBody";
+import Table from "../components/common/Table";
+import TableHeader from "../components/common/TableHeader";
+import TableBody from "../components/common/TableBody";
 import { getAllItemsQty, getTotalSum } from "../components/cart/cartSlice";
 import Divider from "../components/common/Divider";
 import LinkButton from "../components/common/LinkButton";
 
 function CartPage() {
+  const cartItems = useSelector((state) => state.cart.cartItems);
   const allCartItems = useSelector(getAllItemsQty);
   const allItemsSum = useSelector(getTotalSum);
 
   return (
-    <div className="lg:grid lg:flex-none flex flex-col grid-cols-5 gap-5 w-full">
+    <div className="lg:grid lg:flex-none flex flex-col grid-cols-5 gap-5 w-full px-4 lg:px-10">
       <div className="col-span-3 flex flex-col gap-5">
         <h1 className="text-3xl font-semibold">Shopping Cart</h1>
         <Table>
           <TableHeader />
-          <TableBody />
+          <TableBody items={cartItems} />
         </Table>
       </div>
       <div className="col-span-2">

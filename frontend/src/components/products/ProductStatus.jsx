@@ -1,6 +1,6 @@
 import Divider from "../common/Divider";
 import ProductQtyControl from "./ProductQtyControl";
-import ProductStatField from "./ProductStatField";
+import ProductStatField from "../common/StatField";
 
 function ProductStatus({ currProduct, inStock }) {
   return (

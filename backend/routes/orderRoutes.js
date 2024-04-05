@@ -11,11 +11,7 @@ router
 
 router.get("/my-orders", controllers.order.getMyOrders);
 
-router.get(
-  "/:orderId",
-  controllers.auth.authorize,
-  controllers.order.getOrderById
-);
+router.get("/:orderId", controllers.order.getOrderById);
 router.patch("/:orderId/pay", controllers.order.updateOrderToPaid);
 router.patch("/:orderId/deliver", controllers.order.updateOrderToDelivered);
 

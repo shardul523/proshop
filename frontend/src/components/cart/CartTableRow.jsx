@@ -5,7 +5,7 @@ import { deleteItem } from "./cartSlice";
 import { decimalFormatter } from "../../utils";
 import { Link } from "react-router-dom";
 
-function TableRow({ item }) {
+function CartTableRow({ item }) {
   const dispatch = useDispatch();
   const total = decimalFormatter(item.price * item.quantity);
 
@@ -36,4 +36,4 @@ function TableRow({ item }) {
   );
 }
 
-export default TableRow;
+export default CartTableRow;

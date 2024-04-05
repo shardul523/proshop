@@ -51,7 +51,10 @@ exports.getMyOrders = catchAsync(async (req, res, next) => {
  * @access  PRIVATE
  */
 exports.getOrderById = catchAsync(async (req, res, next) => {
-  const order = await Order.findById(req.params.orderId);
+  const order = await Order.findById(req.params.orderId).populate([
+    "user",
+    { path: "orderItems", populate: "product" },
+  ]);
 
   if (!order) return next(new AppError("No order found with given id", 404));
 

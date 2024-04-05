@@ -4,5 +4,5 @@
   "USER_SIGNUP": "auth/signup",
   "USER_PROFILE": "users/profile",
   "LOGOUT": "auth/logout",
-  "CREATE_ORDER": "orders"
+  "ORDER_BASE": "orders"
 }

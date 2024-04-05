@@ -1,11 +1,24 @@
 import axios from "axios";
 import constants from "./constants.json";
 
-const { BASE_URL, CREATE_ORDER } = constants;
+const { BASE_URL, ORDER_BASE } = constants;
 
 export async function createOrder(cart) {
   try {
-    await axios.post(`${BASE_URL}/${CREATE_ORDER}`, { cart });
+    const response = await axios.post(`${BASE_URL}/${ORDER_BASE}`, { cart });
+    const { order } = response.data.data;
+    return order;
+  } catch (err) {
+    console.error(err);
+    throw new Error(err.message);
+  }
+}
+
+export async function getOrderById(id) {
+  try {
+    const response = await axios.get(`${BASE_URL}/${ORDER_BASE}/${id}`);
+    const { order } = response.data.data;
+    return order;
   } catch (err) {
     console.error(err);
     throw new Error(err.message);

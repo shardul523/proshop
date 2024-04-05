@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Provider } from "react-redux";
@@ -15,6 +15,7 @@ import ShippingAddressPage from "./pages/ShippingAddressPage.jsx";
 import PrivateRoute from "./routes/PrivateRoute.jsx";
 import PaymentPage from "./pages/PaymentPage.jsx";
 import PlaceOrder from "./pages/PlaceOrder.jsx";
+import OrderPage from "./pages/OrderPage.jsx";
 
 import store from "./store.js";
 import "./index.css";
@@ -38,7 +39,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
                 <Route path="/shipping" element={<ShippingAddressPage />} />
                 <Route path="/payment" element={<PaymentPage />} />
                 <Route path="/place-order" element={<PlaceOrder />} />
+                <Route path="/orders/:orderId" element={<OrderPage />} />
               </Route>
+              <Route path="*" element={<Navigate to={"/"} replace />} />
             </Route>
           </Routes>
         </BrowserRouter>
