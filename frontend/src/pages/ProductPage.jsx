@@ -5,7 +5,7 @@ import Container from "../components/common/Container";
 import Rating from "../components/products/Rating";
 import LinkButton from "../components/common/LinkButton";
 import Divider from "../components/common/Divider";
-import Loader from "../components/common/Loader";
+import Loader from "../components/ui/Loader";
 import ProductStatus from "../components/products/ProductStatus";
 
 import { productLoader } from "../services/loaders";

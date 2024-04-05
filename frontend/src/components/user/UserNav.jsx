@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
 import { IoMdArrowDropdown } from "react-icons/io";
@@ -14,6 +14,15 @@ function UserNav({ name }) {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
+  const popoverRef = useRef();
+
+  // useEffect(() => {
+  //   popoverRef.current.addEventListener("click", (e) => {
+  //     console.log(popoverRef.current);
+  //     console.log(e.target);
+  //     if (e.target !== popoverRef.current) setIsOpen(false);
+  //   });
+  // }, []);
 
   const onLogoutHandler = async () => {
     try {
@@ -44,6 +53,7 @@ function UserNav({ name }) {
         className={`${
           isOpen ? "block" : "hidden"
         } absolute right-0 mt-2 py-2 w-40 bg-secondary-100 border rounded shadow-lg`}
+        ref={popoverRef}
       >
         <Link
           to={"/profile"}

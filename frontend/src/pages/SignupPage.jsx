@@ -7,7 +7,7 @@ import Button from "../components/common/Button";
 import Form from "../components/common/Form";
 import FormContainer from "../components/common/FormContainer";
 import FormInput from "../components/common/FormInput";
-import Loader from "../components/common/Loader";
+import Loader from "../components/ui/Loader";
 
 import { useSignup, useProfile } from "../hooks";
 
