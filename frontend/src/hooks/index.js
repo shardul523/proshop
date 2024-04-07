@@ -16,9 +16,10 @@ export const useLogin = () => {
 
   const { mutate: userLogin, status } = useMutation({
     mutationFn: login,
-    onSuccess: () => {
+    onSuccess: (userId) => {
+      console.log(userId);
       toast.success("User logged in successfully");
-      dispatch(authenticate());
+      dispatch(authenticate(userId));
     },
     onError: () => {
       toast.error("User could not be logged in");
@@ -33,9 +34,9 @@ export const useSignup = () => {
 
   const { mutate: userSignup, status } = useMutation({
     mutationFn: signup,
-    onSuccess: () => {
+    onSuccess: (userId) => {
       toast.success("User Signed up successfully");
-      dispatch(authenticate());
+      dispatch(authenticate(userId));
     },
     onError: () => {
       toast.error("User could not be signed up");
