@@ -19,7 +19,7 @@ export function isValidShippingAddress(shippingAddress) {
 export function isValidPaymentMethod(paymentMethod) {
   if (!paymentMethod) return false;
 
-  const methods = ["PayPal", "NetBanking"];
+  const methods = ["PayPal", "Net Banking"];
 
   if (methods.includes(paymentMethod)) return true;
 

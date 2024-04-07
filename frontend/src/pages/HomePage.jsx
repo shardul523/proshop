@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { productsLoader } from "../services/loaders";
 
 import ProductCard from "../components/products/ProductCard";
-import Loader from "../components/common/Loader";
+import Loader from "../components/ui/Loader";
 import Container from "../components/common/Container";
 
 function HomePage() {

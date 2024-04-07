@@ -3,7 +3,7 @@ import { Link, Navigate, useSearchParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import Button from "../components/common/Button";
-import Loader from "../components/common/Loader";
+import Loader from "../components/ui/Loader";
 import FormContainer from "../components/common/FormContainer";
 import Form from "../components/common/Form";
 import FormInput from "../components/common/FormInput";
