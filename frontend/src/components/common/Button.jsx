@@ -7,10 +7,11 @@ const variants = {
     "border border-primary-500 mt-5 px-3 py-2 rounded hover:bg-primary-600 hover:text-secondary-100",
 };
 
-function Button({ children, variant, ...props }) {
+function Button({ children, variant, disabled, ...props }) {
   return (
     <button
       className={variant ? variants[variant] : variants.default}
+      disabled={disabled}
       {...props}
     >
       {children}

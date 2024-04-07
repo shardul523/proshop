@@ -1,5 +1,5 @@
 const User = require("../models/userModel");
-const { catchAsync } = require("../utils");
+const { catchAsync, AppError } = require("../utils");
 
 /**
  * @desc     GET THE CURRENT USERS PROFILE
@@ -27,16 +27,23 @@ exports.getUserProfile = (req, res) => {
  */
 exports.updateUserProfile = catchAsync(async (req, res) => {
   const { name, email, password } = req.body;
-  const updateDetails = { name, email };
 
-  if (password) updateDetails.password = password;
+  const user = await User.findById(req.user._id);
 
-  await User.findByIdAndUpdate(req.user._id, updateDetails);
+  if (name) user.name = name;
+  if (email) user.email = email;
+  if (password) user.password = password;
 
-  res.status(200).json({
-    status: "success",
-    data: { message: "User details updated successfully" },
-  });
+  try {
+    await user.save();
+    return res.status(200).json({
+      status: "success",
+      data: { message: "User details updated successfully" },
+    });
+  } catch (err) {
+    return next(err);
+  }
+  // await User.findByIdAndUpdate(req.user._id, updateDetails);
 });
 
 /**

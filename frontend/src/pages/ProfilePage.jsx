@@ -1,16 +1,22 @@
 import { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
+
 import EditableInput from "../components/common/EditableInput";
 import Button from "../components/common/Button";
 
 import { useProfile } from "../hooks";
+import { useUserUpdate } from "../hooks/userHooks";
 
 function ProfilePage() {
-  const { user } = useProfile();
+  const { user, isLoading: isUserLoading } = useProfile();
+  const { updateUser, isPending: isUpdatePending } = useUserUpdate();
   const [name, setName] = useState(user?.name || "");
   const [email, setEmail] = useState(user?.email || "");
   const [pass, setPass] = useState();
   const [confirmPass, setConfirmPass] = useState();
   const [edit, setEdit] = useState(false);
+
+  const isLoading = isUserLoading || isUpdatePending;
 
   useEffect(() => {
     setName(user?.name);
@@ -21,6 +27,18 @@ function ProfilePage() {
     setEdit((prev) => !prev);
     setPass("");
     setConfirmPass("");
+  };
+
+  const onConfirm = () => {
+    if (!name || !email)
+      return toast.error("Name and email should not be empty!");
+
+    if (pass && pass !== confirmPass)
+      return toast.error("Passwords do not match!");
+
+    updateUser({ name, email, password: pass });
+
+    toggleEdit();
   };
 
   // if (isLoading) return <Loader />;
@@ -59,11 +77,23 @@ function ProfilePage() {
             </>
           )}
         </div>
-        {!edit && <Button onClick={toggleEdit}>Edit</Button>}
+        {!edit && (
+          <Button disabled={isLoading} onClick={toggleEdit}>
+            Edit
+          </Button>
+        )}
         {edit && (
           <div className="flex gap-2">
-            <Button onClick={toggleEdit}>Cancel</Button>
-            <Button variant={"outline"}>Confirm</Button>
+            <Button disabled={isLoading} onClick={toggleEdit}>
+              Cancel
+            </Button>
+            <Button
+              disabled={isLoading}
+              variant={"outline"}
+              onClick={onConfirm}
+            >
+              Confirm
+            </Button>
           </div>
         )}
       </div>
