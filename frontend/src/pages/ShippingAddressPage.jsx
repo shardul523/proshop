@@ -33,7 +33,7 @@ function ShippingAddressPage() {
     };
 
     dispatch(saveShippingAddress(data));
-    navigate("/payment");
+    navigate("/checkout/payment");
   };
 
   return (

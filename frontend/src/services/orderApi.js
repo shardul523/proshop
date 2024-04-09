@@ -24,3 +24,14 @@ export async function getOrderById(id) {
     throw new Error(err.message);
   }
 }
+
+export async function getMyOrders() {
+  try {
+    const response = await axios.get(`${BASE_URL}/${ORDER_BASE}/my-orders`);
+    const { orders } = response.data.data;
+    return orders;
+  } catch (err) {
+    console.error(err);
+    throw new Error(err.message);
+  }
+}

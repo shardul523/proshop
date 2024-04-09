@@ -26,7 +26,7 @@ function PaymentPage() {
 
     dispatch(savePaymentMethod(selectedOption));
 
-    navigate("/place-order");
+    navigate("/checkout/place-order");
   };
 
   return (

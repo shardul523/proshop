@@ -6,8 +6,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: colors.emerald,
-        secondary: colors.neutral,
+        primary: colors.sky,
+        secondary: colors.slate,
       },
     },
   },

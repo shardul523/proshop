@@ -5,7 +5,7 @@ import { toast } from "react-hot-toast";
 
 import { clearCart } from "../components/cart/cartSlice";
 
-import { createOrder, getOrderById } from "../services/orderApi";
+import { createOrder, getOrderById, getMyOrders } from "../services/orderApi";
 
 export function useCreateNewOrder() {
   const navigate = useNavigate();
@@ -36,4 +36,16 @@ export function useGetOrderById(orderId) {
   });
 
   return { order, isPending, isError };
+}
+
+export function useMyOrders() {
+  const {
+    data: orders,
+    isPending,
+    isError,
+  } = useQuery({
+    queryKey: ["orders", "mine"],
+    queryFn: getMyOrders,
+  });
+  return { orders, isPending, isError };
 }

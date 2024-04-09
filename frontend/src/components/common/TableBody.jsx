@@ -1,12 +1,4 @@
-import TableRow from "../cart/CartTableRow";
-
-function TableBody({ items }) {
-  return (
-    <tbody className="text-center ">
-      {items.map((item) => (
-        <TableRow item={item} key={item.product} />
-      ))}
-    </tbody>
-  );
+function TableBody({ children }) {
+  return <tbody className="text-center ">{children}</tbody>;
 }
 export default TableBody;
