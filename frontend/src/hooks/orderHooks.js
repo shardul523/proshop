@@ -5,7 +5,12 @@ import { toast } from "react-hot-toast";
 
 import { clearCart } from "../components/cart/cartSlice";
 
-import { createOrder, getOrderById, getMyOrders } from "../services/orderApi";
+import {
+  createOrder,
+  getOrderById,
+  getMyOrders,
+  getAllOrders,
+} from "../services/orderApi";
 
 export function useCreateNewOrder() {
   const navigate = useNavigate();
@@ -48,4 +53,12 @@ export function useMyOrders() {
     queryFn: getMyOrders,
   });
   return { orders, isPending, isError };
+}
+
+export function useAllOrders() {
+  const { data: allOrders, isPending } = useQuery({
+    queryKey: ["orders"],
+    queryFn: getAllOrders,
+  });
+  return { allOrders, isPending };
 }

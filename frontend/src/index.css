@@ -44,3 +44,7 @@
   transform: rotate(-45deg);
   top: 10px;
 }
+
+.dropdown-link {
+  @apply block px-4 py-2 text-secondary-800 hover:bg-primary-500 hover:text-secondary-50;
+}

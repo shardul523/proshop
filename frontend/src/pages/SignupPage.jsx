@@ -9,7 +9,8 @@ import FormContainer from "../components/common/FormContainer";
 import FormInput from "../components/common/FormInput";
 import Loader from "../components/ui/Loader";
 
-import { useSignup, useProfile } from "../hooks";
+import { useSignup } from "../hooks";
+import { useProfile } from "../hooks/userHooks";
 
 function SignupPage() {
   const emailInputRef = useRef();

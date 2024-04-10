@@ -9,13 +9,17 @@ import Navlink from "./Navlink";
 import Badge from "../common/Badge";
 import UserNav from "../user/UserNav";
 
-import { useAllItemsQty, useProfile } from "../../hooks";
+import { useAllItemsQty } from "../../hooks";
+import { useProfile } from "../../hooks/userHooks";
 import logo from "../../assets/logo.png";
+import AdminNav from "../admin/AdminNav";
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const allQty = useAllItemsQty();
   const { auth, user } = useProfile();
+
+  console.log(user);
 
   const toggleOpen = () => setIsOpen((prev) => !prev);
 
@@ -36,6 +40,11 @@ function Header() {
               </Navlink>
               {allQty > 0 && <Badge>{allQty}</Badge>}
             </li>
+            {auth?.isLoggedIn && user?.isAdmin && (
+              <li>
+                <AdminNav />
+              </li>
+            )}
             <li>
               {!auth?.isLoggedIn && (
                 <Navlink to={"/sign-in"}>

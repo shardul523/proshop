@@ -8,7 +8,8 @@ import FormContainer from "../components/common/FormContainer";
 import Form from "../components/common/Form";
 import FormInput from "../components/common/FormInput";
 
-import { useLogin, useProfile } from "../hooks";
+import { useLogin } from "../hooks";
+import { useProfile } from "../hooks/userHooks";
 
 function SigninPage() {
   const emailInputRef = useRef();

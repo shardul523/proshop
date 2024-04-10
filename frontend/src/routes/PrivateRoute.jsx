@@ -1,5 +1,5 @@
 import { Outlet, Navigate } from "react-router-dom";
-import { useProfile } from "../hooks";
+import { useProfile } from "../hooks/userHooks";
 
 function PrivateRoute() {
   const { auth } = useProfile();

@@ -6,21 +6,25 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Provider } from "react-redux";
 
 import App from "./App.jsx";
+import PrivateRoute from "./routes/PrivateRoute.jsx";
+import CheckoutRoute from "./routes/CheckoutRoute.jsx";
+import AdminRoute from "./routes/AdminRoute.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import ProductPage from "./pages/ProductPage.jsx";
 import CartPage from "./pages/CartPage.jsx";
 import SigninPage from "./pages/SigninPage.jsx";
 import SignupPage from "./pages/SignupPage.jsx";
 import ShippingAddressPage from "./pages/ShippingAddressPage.jsx";
-import PrivateRoute from "./routes/PrivateRoute.jsx";
 import PaymentPage from "./pages/PaymentPage.jsx";
 import PlaceOrder from "./pages/PlaceOrder.jsx";
 import OrderPage from "./pages/OrderPage.jsx";
+import ProfilePage from "./pages/ProfilePage.jsx";
+import OrdersList from "./pages/admin/OrdersList.jsx";
+import UsersList from "./pages/admin/UsersList.jsx";
+import ProductsList from "./pages/admin/ProductsList.jsx";
 
 import store from "./store.js";
 import "./index.css";
-import ProfilePage from "./pages/ProfilePage.jsx";
-import CheckoutRoute from "./routes/CheckoutRoute.jsx";
 
 const queryClient = new QueryClient();
 
@@ -45,6 +49,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
                 </Route>
                 <Route path="/orders/:orderId" element={<OrderPage />} />
                 <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/admin" element={<AdminRoute />}>
+                  <Route path="ordersList" element={<OrdersList />} />
+                  <Route path="usersList" element={<UsersList />} />
+                  <Route path="productsList" element={<ProductsList />} />
+                </Route>
               </Route>
               <Route path="*" element={<Navigate to={"/"} replace />} />
             </Route>

@@ -1,7 +1,7 @@
 import UserProfileEdit from "../components/user/UserProfileEdit";
 import Loader from "../components/ui/Loader";
 
-import { useProfile } from "../hooks";
+import { useProfile } from "../hooks/userHooks";
 import Container from "../components/common/Container";
 import UserOrdersList from "../components/user/UserOrdersList";
 

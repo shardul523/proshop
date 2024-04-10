@@ -1,11 +1,10 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 
-import { authenticate, unauthenticate } from "../components/user/authSlice";
+import { authenticate } from "../components/user/authSlice";
 import { getItemQty, getAllItemsQty } from "../components/cart/cartSlice";
-import { getUserProfile, login, signup } from "../services/authApi";
-import { useEffect } from "react";
+import { login, signup } from "../services/authApi";
 
 export const useItemQty = (item) => useSelector(getItemQty(item));
 
@@ -44,26 +43,4 @@ export const useSignup = () => {
   });
 
   return { userSignup, status };
-};
-
-export const useProfile = () => {
-  const auth = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
-  const {
-    data: user,
-    status,
-    error,
-  } = useQuery({
-    queryKey: ["user"],
-    queryFn: getUserProfile,
-    enabled: auth?.isLoggedIn,
-  });
-
-  const isLoading = auth.isLoggedIn ? status === "pending" : false;
-
-  useEffect(() => {
-    if (error) dispatch(unauthenticate());
-  }, [error, dispatch]);
-
-  return { auth, user, isLoading, error };
 };

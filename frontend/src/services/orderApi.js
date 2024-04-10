@@ -35,3 +35,14 @@ export async function getMyOrders() {
     throw new Error(err.message);
   }
 }
+
+export async function getAllOrders() {
+  try {
+    const res = await axios.get(`${BASE_URL}/${ORDER_BASE}`);
+    const { orders } = res.data.data;
+    return orders;
+  } catch (err) {
+    console.error(err);
+    throw new Error(err.message || err.error);
+  }
+}

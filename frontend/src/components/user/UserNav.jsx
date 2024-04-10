@@ -1,20 +1,17 @@
-import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
-import { IoMdArrowDropdown } from "react-icons/io";
 import { toast } from "react-hot-toast";
-import { logout } from "../../services/authApi";
-
 import { useDispatch } from "react-redux";
 import { useQueryClient } from "@tanstack/react-query";
 
+import Nav from "../common/Nav";
+
 import { unauthenticate } from "./authSlice";
+import { logout } from "../../services/authApi";
 
 function UserNav({ name }) {
-  const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
-  const popoverRef = useRef();
 
   // useEffect(() => {
   //   popoverRef.current.addEventListener("click", (e) => {
@@ -31,6 +28,9 @@ function UserNav({ name }) {
       queryClient.invalidateQueries({
         queryKey: ["user"],
       });
+      queryClient.invalidateQueries({
+        queryKey: ["orders", "mine"],
+      });
       toast.success("User logged Out successfully!");
     } catch (err) {
       toast.error(err.message);
@@ -38,37 +38,24 @@ function UserNav({ name }) {
   };
 
   return (
-    <div className="relative">
+    <Nav
+      navTitle={
+        <>
+          <FaUser />
+          {name}
+        </>
+      }
+    >
+      <Link to={"/profile"} className="dropdown-link">
+        Profile
+      </Link>
       <button
-        className="text-lg hover:bg-primary-700 py-1 px-2 rounded-lg flex items-center gap-1"
-        onClick={() => {
-          setIsOpen((prev) => !prev);
-        }}
+        onClick={onLogoutHandler}
+        className="dropdown-link w-full text-left"
       >
-        <FaUser />
-        {name}
-        <IoMdArrowDropdown />
+        Logout
       </button>
-      <div
-        className={`${
-          isOpen ? "block" : "hidden"
-        } absolute right-0 mt-2 py-2 w-40 bg-secondary-100 border rounded shadow-lg z-10`}
-        ref={popoverRef}
-      >
-        <Link
-          to={"/profile"}
-          className="block px-4 py-2 text-secondary-800 hover:bg-primary-500 hover:text-secondary-50"
-        >
-          Profile
-        </Link>
-        <button
-          onClick={onLogoutHandler}
-          className="block px-4 py-2 text-secondary-800 hover:bg-primary-500 hover:text-secondary-50 w-full text-left"
-        >
-          Logout
-        </button>
-      </div>
-    </div>
+    </Nav>
   );
 }
 export default UserNav;
