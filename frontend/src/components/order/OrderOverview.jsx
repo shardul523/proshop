@@ -8,11 +8,15 @@ import { getFullAddress } from "../../utils";
 
 function OrderOverview({ order }) {
   const {
-    user: { name, email },
+    user,
     shippingAddress,
     paymentMethod,
     orderItems,
     _id: orderId,
+    isPaid,
+    paidAt,
+    isDelivered,
+    deliveredAt,
   } = order;
 
   const fullAddress = getFullAddress(shippingAddress);
@@ -22,12 +26,19 @@ function OrderOverview({ order }) {
       <h2 className="text-3xl font-semibold">Order {orderId}</h2>
       <div className="px-4">
         <OrderDetail detailField={"Shipping"}>
-          <OrderDetailField field={"Name"} value={name} />
-          <OrderDetailField field={"Email"} value={email} />
+          <OrderDetailField field={"Name"} value={user?.name} />
+          <OrderDetailField field={"Email"} value={user?.email} />
           <OrderDetailField field={"Address"} value={fullAddress} />
           <OrderDetailField
             field={"Status"}
-            value={<StatusField status="failure" value={"Not Delivered"} />}
+            value={
+              <StatusField
+                status={isDelivered ? "success" : "fail"}
+                value={
+                  isDelivered ? `Delivered At: ${deliveredAt}` : "Not Delivered"
+                }
+              />
+            }
           />
         </OrderDetail>
         <Divider />
@@ -35,7 +46,12 @@ function OrderOverview({ order }) {
           <OrderDetailField field={"Method"} value={paymentMethod} />
           <OrderDetailField
             field={"Status"}
-            value={<StatusField status="failure" value={"Not Paid"} />}
+            value={
+              <StatusField
+                status={isPaid ? "success" : "fail"}
+                value={isPaid ? `Paid At: ${paidAt}` : "Not Paid"}
+              />
+            }
           />
         </OrderDetail>
         <Divider />

@@ -19,7 +19,7 @@ function OrderPage() {
     <Container>
       <div className="flex flex-col lg:flex-none lg:grid grid-cols-7 px-20 my-1">
         <div className="col-span-5">
-          <OrderOverview />
+          <OrderOverview order={order} />
         </div>
         <div className="col-span-2">
           <OrderSummary order={order} />

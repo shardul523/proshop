@@ -46,3 +46,21 @@ export async function getAllOrders() {
     throw new Error(err.message || err.error);
   }
 }
+
+export async function updateOrderToDelivered(orderId) {
+  try {
+    await axios.patch(`${BASE_URL}/${ORDER_BASE}/${orderId}/deliver`);
+  } catch (err) {
+    console.error(err);
+    throw new Error(err.message || err.error);
+  }
+}
+
+export async function updateOrderToPaid(orderId) {
+  try {
+    await axios.patch(`${BASE_URL}/${ORDER_BASE}/${orderId}/pay`);
+  } catch (err) {
+    console.error();
+    throw new Error(err.message || err.error);
+  }
+}

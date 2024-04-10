@@ -46,12 +46,13 @@ function Header() {
               </li>
             )}
             <li>
-              {!auth?.isLoggedIn && (
+              {!auth?.isLoggedIn ? (
                 <Navlink to={"/sign-in"}>
                   <FaUser /> Sign In
                 </Navlink>
+              ) : (
+                user && <UserNav name={user.name} />
               )}
-              {auth?.isLoggedIn && user && <UserNav name={user.name} />}
             </li>
           </ul>
         </Navbar>

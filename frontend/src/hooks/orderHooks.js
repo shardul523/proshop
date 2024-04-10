@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { toast } from "react-hot-toast";
@@ -10,6 +10,8 @@ import {
   getOrderById,
   getMyOrders,
   getAllOrders,
+  updateOrderToDelivered,
+  updateOrderToPaid,
 } from "../services/orderApi";
 
 export function useCreateNewOrder() {
@@ -61,4 +63,40 @@ export function useAllOrders() {
     queryFn: getAllOrders,
   });
   return { allOrders, isPending };
+}
+
+export function useOrderDeliver(orderId) {
+  const queryClient = useQueryClient();
+  const { mutate: updateToDeliverd, isPending } = useMutation({
+    mutationFn: () => updateOrderToDelivered(orderId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["order", orderId],
+      });
+      toast.success("Order marked as delivered");
+    },
+    onError: () => {
+      toast.error("Order could not be delivered");
+    },
+  });
+
+  return { updateToDeliverd, isPending };
+}
+
+export function useOrderPay(orderId) {
+  const queryClient = useQueryClient();
+  const { mutate: updateToPaid, isPending } = useMutation({
+    mutationFn: () => updateOrderToPaid(orderId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["order", orderId],
+      });
+      toast.success("Order marked as paid");
+    },
+    onError: () => {
+      toast.error("Order could not be paid for");
+    },
+  });
+
+  return { updateToPaid, isPending };
 }

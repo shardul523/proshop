@@ -109,6 +109,8 @@ exports.updateOrderToPaid = catchAsync(async (req, res, next) => {
 exports.updateOrderToDelivered = catchAsync(async (req, res) => {
   const { orderId } = req.params;
 
+  console.log(orderId);
+
   const order = await Order.findById(orderId);
 
   if (!order) return next(new AppError("No such order exists", 404));
