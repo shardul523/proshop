@@ -3,7 +3,7 @@ import Nav from "../common/Nav";
 
 function AdminNav() {
   return (
-    <Nav navTitle={"Admin"}>
+    <Nav navTitle={"Admin Menu"}>
       <Link className="dropdown-link" to={"/admin/productsList"}>
         Products
       </Link>

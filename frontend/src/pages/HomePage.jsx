@@ -1,20 +1,14 @@
-import { useQuery } from "@tanstack/react-query";
-
-import { productsLoader } from "../services/loaders";
-
 import ProductCard from "../components/products/ProductCard";
 import Loader from "../components/ui/Loader";
 import Container from "../components/common/Container";
+import { useAllProducts } from "../hooks/productsHooks";
 
 function HomePage() {
-  const { data: products, status } = useQuery({
-    queryKey: ["products"],
-    queryFn: productsLoader,
-  });
+  const { allProducts, isPending } = useAllProducts();
 
-  if (status === "pending") return <Loader />;
+  if (isPending) return <Loader />;
 
-  if (!products) return <p>No products found</p>;
+  if (!allProducts) return <p>No products found</p>;
 
   return (
     <Container>
@@ -22,7 +16,7 @@ function HomePage() {
         Latest Products
       </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 items-center place-items-center gap-4">
-        {products.map((product) => (
+        {allProducts.map((product) => (
           <ProductCard key={product._id} product={product} />
         ))}
       </div>

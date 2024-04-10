@@ -22,3 +22,19 @@ exports.getProductById = catchAsync(async function (req, res, next) {
     data: { product },
   });
 });
+
+/**
+ * @desc    DELETE PRODUCT BY ID
+ * @route   DELETE /api/v1/products/:productId
+ * @access  ADMIN
+ */
+exports.deleteProductById = catchAsync(async (req, res) => {
+  await Product.findByIdAndDelete(req.params.productId);
+
+  return res.status(204).json({
+    status: "success",
+    data: {
+      message: "Product Deleted",
+    },
+  });
+});

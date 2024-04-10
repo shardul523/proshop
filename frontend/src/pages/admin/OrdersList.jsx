@@ -13,8 +13,6 @@ import { useAllOrders } from "../../hooks/orderHooks";
 function OrdersList() {
   const { allOrders, isPending } = useAllOrders();
 
-  console.log(allOrders);
-
   if (isPending) return <Loader />;
 
   return (
