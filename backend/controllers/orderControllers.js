@@ -83,8 +83,22 @@ exports.getAllOrders = catchAsync(async (req, res) => {
  * @route   PATCH /api/v1/orders/:orderId/pay
  * @access  PRIVATE
  */
-exports.updateOrderToPaid = catchAsync(async (req, res) => {
-  res.send("GIVEN ORDER IS PAID");
+exports.updateOrderToPaid = catchAsync(async (req, res, next) => {
+  const { orderId } = req.params;
+
+  const order = await Order.findById(orderId);
+
+  if (!order) return next(new AppError("No such order exists", 404));
+
+  order.isPaid = true;
+  order.paidAt = new Date();
+
+  await order.save();
+
+  res.status(203).json({
+    status: "success",
+    message: "Order paid",
+  });
 });
 
 /**
@@ -93,5 +107,22 @@ exports.updateOrderToPaid = catchAsync(async (req, res) => {
  * @access  PRIVATE/ADMIN
  */
 exports.updateOrderToDelivered = catchAsync(async (req, res) => {
-  res.send("Mark order as delivered");
+  const { orderId } = req.params;
+
+  const order = await Order.findById(orderId);
+
+  if (!order) return next(new AppError("No such order exists", 404));
+
+  if (!order.isPaid)
+    return next(new AppError("Order has not been paid for", 500));
+
+  order.isDelivered = true;
+  order.deliveredAt = new Date();
+
+  await order.save();
+
+  res.status(203).json({
+    status: "success",
+    message: "Order delivered",
+  });
 });
