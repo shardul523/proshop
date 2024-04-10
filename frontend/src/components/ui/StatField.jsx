@@ -1,4 +1,4 @@
-function ProductStatField({ label, value }) {
+function StatField({ label, value }) {
   return (
     <div className="flex justify-between px-4 items-center">
       <span>{label}:</span>
@@ -6,4 +6,4 @@ function ProductStatField({ label, value }) {
     </div>
   );
 }
-export default ProductStatField;
+export default StatField;
