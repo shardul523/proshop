@@ -22,7 +22,7 @@ function ProductPage() {
 
   return (
     <Container>
-      <LinkButton to={"/"}>Go Back</LinkButton>
+      <LinkButton to={-1}>Go Back</LinkButton>
       <div className="flex flex-col items-center lg:grid grid-cols-12">
         <div className="col-span-3 p-2 rounded-md bg-slate-100 md:w-96 lg:w-full w-80">
           <img className="rounded-md" alt="product" src={image} />

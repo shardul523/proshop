@@ -22,6 +22,7 @@ import ProfilePage from "./pages/ProfilePage.jsx";
 import OrdersList from "./pages/admin/OrdersList.jsx";
 import UsersList from "./pages/admin/UsersList.jsx";
 import ProductsList from "./pages/admin/ProductsList.jsx";
+import AddProductForm from "./pages/admin/AddProductForm.jsx";
 
 import store from "./store.js";
 import "./index.css";
@@ -50,9 +51,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
                 <Route path="/orders/:orderId" element={<OrderPage />} />
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/admin" element={<AdminRoute />}>
-                  <Route path="ordersList" element={<OrdersList />} />
-                  <Route path="usersList" element={<UsersList />} />
-                  <Route path="productsList" element={<ProductsList />} />
+                  <Route path="orders" element={<OrdersList />} />
+                  <Route path="users" element={<UsersList />} />
+                  <Route path="products" element={<ProductsList />} />
+                  <Route path="products/new" element={<AddProductForm />} />
                 </Route>
               </Route>
               <Route path="*" element={<Navigate to={"/"} replace />} />

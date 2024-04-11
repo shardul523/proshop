@@ -3,3 +3,10 @@ exports.catchAsync = (fn) => (req, res, next) => {
 };
 
 exports.AppError = require("./AppError");
+
+exports.getProductImageName = (file, orderId) => {
+  const ext = file.mimetype.replace("image/", "");
+  const name = `/images/products/${orderId}.${ext}`;
+  console.log(name);
+  return name;
+};

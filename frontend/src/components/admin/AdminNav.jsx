@@ -4,13 +4,13 @@ import Nav from "../common/Nav";
 function AdminNav() {
   return (
     <Nav navTitle={"Admin Menu"}>
-      <Link className="dropdown-link" to={"/admin/productsList"}>
+      <Link className="dropdown-link" to={"/admin/products"}>
         Products
       </Link>
-      <Link className="dropdown-link" to={"/admin/ordersList"}>
+      <Link className="dropdown-link" to={"/admin/orders"}>
         Orders
       </Link>
-      <Link className="dropdown-link" to={"/admin/usersList"}>
+      <Link className="dropdown-link" to={"/admin/users"}>
         Users
       </Link>
     </Nav>
