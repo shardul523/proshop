@@ -6,10 +6,10 @@ import CheckoutContainer from "../components/order/CheckoutContainer";
 import FormContainer from "../components/common/FormContainer";
 import Form from "../components/common/Form";
 import FormInput from "../components/common/FormInput";
-import Button from "../components/common/Button";
+import CheckoutSteps from "../components/order/CheckoutSteps";
+import CheckoutButtonGroup from "@/components/order/CheckoutButtonGroup";
 
 import { saveShippingAddress } from "../components/cart/cartSlice";
-import CheckoutSteps from "../components/order/CheckoutSteps";
 
 function ShippingAddressPage() {
   const addressRef = useRef();
@@ -78,7 +78,7 @@ function ShippingAddressPage() {
               required
             />
           </div>
-          <Button>Continue</Button>
+          <CheckoutButtonGroup prev={"/cart"} />
         </Form>
       </FormContainer>
     </CheckoutContainer>

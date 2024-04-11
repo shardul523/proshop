@@ -8,6 +8,7 @@ const { AppError, catchAsync } = require("../utils");
  */
 exports.createNewOrder = catchAsync(async (req, res, next) => {
   const { cart } = req.body;
+  // console.log(cart);
   const { cartItems: orderItems, shippingAddress, paymentMethod } = cart;
   const user = req.user._id;
 
@@ -22,6 +23,8 @@ exports.createNewOrder = catchAsync(async (req, res, next) => {
     shippingAddress,
     paymentMethod,
   });
+
+  // console.log(newOrder);
 
   res.status(201).json({
     status: "success",

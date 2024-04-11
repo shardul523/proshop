@@ -7,7 +7,6 @@ import { Provider } from "react-redux";
 
 import App from "./App.jsx";
 import PrivateRoute from "./routes/PrivateRoute.jsx";
-import CheckoutRoute from "./routes/CheckoutRoute.jsx";
 import AdminRoute from "./routes/AdminRoute.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import ProductPage from "./pages/ProductPage.jsx";
@@ -43,7 +42,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
               <Route path="/sign-in" element={<SigninPage />} />
               <Route path="/sign-up" element={<SignupPage />} />
               <Route path="" element={<PrivateRoute />}>
-                <Route path="/checkout" element={<CheckoutRoute />}>
+                <Route path="/checkout">
                   <Route path="place-order" element={<PlaceOrder />} />
                   <Route path="payment" element={<PaymentPage />} />
                   <Route path="shipping" element={<ShippingAddressPage />} />

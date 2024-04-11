@@ -4,7 +4,8 @@ import { Navigate } from "react-router-dom";
 import Divider from "../components/common/Divider";
 import CheckoutContainer from "../components/order/CheckoutContainer";
 import CheckoutSteps from "../components/order/CheckoutSteps";
-import Button from "../components/common/Button";
+import CheckoutButtonGroup from "@/components/order/CheckoutButtonGroup";
+import CheckoutField from "../components/order/CheckoutField";
 
 import {
   isValidShippingAddress,
@@ -13,7 +14,6 @@ import {
   decimalFormatter,
 } from "../utils";
 import { getTotalSum } from "../components/cart/cartSlice";
-import CheckoutField from "../components/order/CheckoutField";
 import { useCreateNewOrder } from "../hooks/orderHooks";
 
 function PlaceOrder() {
@@ -24,15 +24,15 @@ function PlaceOrder() {
   const { cartItems, shippingAddress, paymentMethod } = cart;
 
   if (!isValidShippingAddress(shippingAddress))
-    return <Navigate to={"/shipping"} replace />;
+    return <Navigate to={"/checkout/shipping"} replace />;
 
   if (!isValidPaymentMethod(paymentMethod))
-    return <Navigate to={"/payment"} replace />;
+    return <Navigate to={"/checkout/payment"} replace />;
 
   const fullAddress = getFullAddress(shippingAddress);
   const taxPrice = decimalFormatter(itemsPrice * 0.15);
   const shippingPrice = itemsPrice < 100 ? 30 : 0;
-  const totalPrice = itemsPrice + taxPrice + shippingPrice;
+  const totalPrice = decimalFormatter(itemsPrice + taxPrice + shippingPrice);
 
   const onSubmitHandler = () =>
     createNewOrder({ cartItems, shippingAddress, paymentMethod });
@@ -65,9 +65,10 @@ function PlaceOrder() {
         field={"Total Amount Payable"}
         value={`$${totalPrice}`}
       />
-      <div className="flex justify-end">
-        <Button onClick={onSubmitHandler}>Place Order</Button>
-      </div>
+      <CheckoutButtonGroup
+        prev={"/checkout/payment"}
+        onClick={onSubmitHandler}
+      />
     </CheckoutContainer>
   );
 }

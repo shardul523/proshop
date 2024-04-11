@@ -5,11 +5,9 @@ function OrderPayButton({ orderId }) {
   const { updateToPaid, isPending } = useOrderPay(orderId);
   console.log(isPending);
   return (
-    <div className="px-4">
-      <Button onClick={updateToPaid} disabled={isPending}>
-        Pay
-      </Button>
-    </div>
+    <Button onClick={updateToPaid} disabled={isPending}>
+      Pay Order
+    </Button>
   );
 }
 

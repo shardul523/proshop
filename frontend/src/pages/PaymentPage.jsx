@@ -7,7 +7,7 @@ import FormContainer from "../components/common/FormContainer";
 import Form from "../components/common/Form";
 import FormRadioInput from "../components/common/FormRadioInput";
 import CheckoutContainer from "../components/order/CheckoutContainer";
-import Button from "../components/common/Button";
+import CheckoutButtonGroup from "@/components/order/CheckoutButtonGroup";
 
 import { savePaymentMethod } from "../components/cart/cartSlice";
 
@@ -50,9 +50,7 @@ function PaymentPage() {
               handleChange={handleChange}
             />
           </div>
-          <div>
-            <Button type="submit">Continue</Button>
-          </div>
+          <CheckoutButtonGroup prev={"/checkout/shipping"} />
         </Form>
       </FormContainer>
     </CheckoutContainer>

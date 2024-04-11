@@ -6,6 +6,7 @@ import OrderSummary from "../components/order/OrderSummary";
 import OrderOverview from "../components/order/OrderOverview";
 
 import { useGetOrderById } from "../hooks/orderHooks";
+import LinkButton from "@/components/common/LinkButton";
 
 function OrderPage() {
   const { orderId } = useParams();
@@ -15,9 +16,12 @@ function OrderPage() {
 
   if (isError) return <Navigate to={"/"} replace />;
 
+  console.log(order);
+
   return (
     <Container>
-      <div className="flex flex-col lg:flex-none lg:grid grid-cols-7 px-20 my-1">
+      <LinkButton to={"/"}>Go Back</LinkButton>
+      <div className="flex flex-col lg:flex-none lg:grid grid-cols-7 px-20 mt-5 mb-1">
         <div className="col-span-5">
           <OrderOverview order={order} />
         </div>

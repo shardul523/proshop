@@ -68,7 +68,10 @@ const orderSchema = new mongoose.Schema(
 
 orderSchema.virtual("totalPrice").get(function () {
   return (
-    this.orderItems.reduce((acc, orderItem) => acc + orderItem.unitPrice, 0) +
+    this.orderItems.reduce(
+      (acc, orderItem) => acc + orderItem.unitPrice * orderItem.quantity,
+      0
+    ) +
     this.taxPrice +
     this.shippingPrice
   );
