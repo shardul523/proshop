@@ -19,8 +19,6 @@ function Header() {
   const allQty = useAllItemsQty();
   const { auth, user } = useProfile();
 
-  console.log(user);
-
   const toggleOpen = () => setIsOpen((prev) => !prev);
 
   return (

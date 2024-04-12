@@ -37,8 +37,8 @@ function SigninPage() {
   if (auth && auth.isLoggedIn) return <Navigate to={redirect} />;
 
   return (
-    <div className="w-full max-w-96 mx-auto px-2">
-      <FormContainer formTitle={"Sign In"}>
+    <div className="w-full max-w-lg px-2 mx-auto">
+      <FormContainer className={"max-w-md"} formTitle={"Sign In"}>
         <Form onSubmit={onSubmitHandler}>
           <FormInput
             label={"Email Address"}

@@ -11,23 +11,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { IoMdArrowDropdown } from "react-icons/io";
 
-import Nav from "../common/Nav";
-
 import { unauthenticate } from "./authSlice";
 import { logout } from "../../services/authApi";
-import Button from "../common/Button";
 
 function UserNav({ name }) {
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
-
-  // useEffect(() => {
-  //   popoverRef.current.addEventListener("click", (e) => {
-  //     console.log(popoverRef.current);
-  //     console.log(e.target);
-  //     if (e.target !== popoverRef.current) setIsOpen(false);
-  //   });
-  // }, []);
 
   const onLogoutHandler = async () => {
     try {
@@ -48,18 +37,25 @@ function UserNav({ name }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="text-lg hover:bg-primary-700 py-1 px-2 rounded-lg flex items-center gap-1 z-50">
+        <div className="cursor-pointer text-lg hover:bg-primary-700 py-1 px-2 rounded-lg flex items-center gap-1">
           <FaUser />
           <span>{name}</span>
           <IoMdArrowDropdown />
-        </button>
+        </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-40">
-        <DropdownMenuItem>
-          <Link to={"/profile"}>Profile</Link>
+        <DropdownMenuItem className="p-0">
+          <Link className="dropdown-link w-full rounded" to={"/profile"}>
+            Profile
+          </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem>
-          <button onClick={onLogoutHandler}>Logout</button>
+        <DropdownMenuItem className="p-0">
+          <button
+            className="w-full dropdown-link rounded text-left"
+            onClick={onLogoutHandler}
+          >
+            Logout
+          </button>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

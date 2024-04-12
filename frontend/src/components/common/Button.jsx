@@ -1,6 +1,6 @@
 const variants = {
   default:
-    "flex place-content-center gap-2 px-3 py-2 rounded text-secondary-100 bg-primary-500 hover:bg-primary-600 active:bg-primary-700",
+    "gap-2 px-3 py-2 rounded text-secondary-100 bg-primary-500 hover:bg-primary-600 active:bg-primary-700",
   pill: "bg-primary-500 text-secondary-100 rounded-2xl p-1",
   pillDisabled: "bg-secondary-200 text-secondary-400 p-1 rounded-2xl",
   outline:
@@ -15,7 +15,9 @@ const variants = {
 function Button({ children, onClick, variant, disabled, ...props }) {
   return (
     <button
-      className={variant ? variants[variant] : variants.default}
+      className={`flex place-content-center items-center ${
+        variant ? variants[variant] : variants.default
+      }`}
       disabled={disabled}
       onClick={onClick}
       {...props}

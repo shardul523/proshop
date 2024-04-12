@@ -2,10 +2,10 @@ import { useParams } from "react-router-dom";
 
 import Container from "../components/common/Container";
 import Rating from "../components/products/Rating";
-import LinkButton from "../components/common/LinkButton";
 import Divider from "../components/common/Divider";
 import Loader from "../components/ui/Loader";
 import ProductStatus from "../components/products/ProductStatus";
+import BackButton from "@/components/common/BackButton";
 
 import { useProduct } from "../hooks/productsHooks";
 
@@ -21,10 +21,10 @@ function ProductPage() {
   const { image, name, rating, numReviews, description } = product;
 
   return (
-    <Container>
-      <LinkButton to={-1}>Go Back</LinkButton>
-      <div className="flex flex-col items-center lg:grid grid-cols-12">
-        <div className="col-span-3 p-2 rounded-md bg-slate-100 md:w-96 lg:w-full w-80">
+    <Container className={"flex md:flex-row flex-col"}>
+      <BackButton />
+      <div className="flex flex-col items-center lg:grid grid-cols-12 ml-5 mt-10">
+        <div className="col-span-3 p-2 rounded-md bg-slate-100 md:w-96 lg:w-full w-80 mx-auto">
           <img className="rounded-md" alt="product" src={image} />
         </div>
         <div className="grid-cols-1"></div>

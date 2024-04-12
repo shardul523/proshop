@@ -26,12 +26,10 @@ function AddProductForm() {
     const brand = brandRef.current.value;
     const category = categoryRef.current.value;
     const description = descriptionRef.current.value;
-    const image = imageRef.current.files[0];
-
-    console.log(descriptionRef);
-
     const price = +priceRef.current.value;
     const countInStock = +stockRef.current.value;
+
+    const image = imageRef.current.files[0];
 
     if (!name || !price || !brand || !category || !description || !countInStock)
       return toast.error("None of the fields should be empty");
@@ -56,7 +54,7 @@ function AddProductForm() {
       formTitle={"Add New Product"}
       className={" max-w-xl mx-auto"}
     >
-      <Form className={"mx-auto max-w-lg"}>
+      <Form className={"mx-auto max-w-md"}>
         <FormInput label={"Name"} inputRef={nameRef} />
         <div className="grid grid-cols-2 gap-2">
           <FormInput type="number" label={"Price"} inputRef={priceRef} />

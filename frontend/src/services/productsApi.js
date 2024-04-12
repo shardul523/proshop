@@ -38,3 +38,13 @@ export async function createNewProduct(data) {
     throw new Error(err.message || err.error);
   }
 }
+
+export async function updateProduct(productId, details) {
+  try {
+    console.log(details);
+    await axios.patch(`${BASE_URL}/${PRODUCTS_BASE}/${productId}`, details);
+  } catch (err) {
+    console.error(err);
+    throw new Error(err.message || err.error);
+  }
+}

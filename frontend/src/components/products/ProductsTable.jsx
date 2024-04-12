@@ -1,3 +1,5 @@
+import { FaEdit } from "react-icons/fa";
+
 import ProductDeleteButton from "@/components/products/ProductDeleteButton";
 import Table from "@/components/common/Table";
 import TableHeader from "@/components/common/TableHeader";
@@ -28,7 +30,12 @@ function ProductsTable() {
             <Td>{product.category}</Td>
             <Td>{product.brand}</Td>
             <Td>
-              <ProductDeleteButton productId={product._id} />
+              <div className="flex gap-2">
+                <LinkButton to={`${product._id}/edit`} variant={"icon"}>
+                  <FaEdit />
+                </LinkButton>
+                <ProductDeleteButton productId={product._id} />
+              </div>
             </Td>
             <Td className="flex items-center">
               <LinkButton variant={"neutral"} to={`/products/${product._id}`}>

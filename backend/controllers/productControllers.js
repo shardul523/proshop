@@ -6,6 +6,14 @@ const Product = require("../models/productModel");
 const { catchAsync, AppError, getProductImageName } = require("../utils");
 
 const upload = multer();
+const productFields = [
+  "name",
+  "price",
+  "countInStock",
+  "brand",
+  "category",
+  "description",
+];
 
 /**
  * @description UPLOAD PRODUCT IMAGE
@@ -62,19 +70,28 @@ exports.deleteProductById = catchAsync(async (req, res) => {
  * @route   POST /api/v1/products
  * @access  ADMIN
  */
-exports.createNewProduct = catchAsync(async (req, res) => {
+exports.createNewProduct = catchAsync(async (req, res, next) => {
   const product = new Product();
 
   console.log(req.file);
 
-  product.name = req.body.name;
-  product.price = req.body.price;
-  product.countInStock = req.body.countInStock;
-  product.brand = req.body.brand;
-  product.category = req.body.category;
-  product.description = req.body.description;
+  for (let field of productFields) {
+    if (!req.body[field])
+      return next(
+        new AppError("Not all the necessary fields are present", 400)
+      );
+
+    product[field] = req.body[field];
+  }
+
+  // product.name = req.body.name;
+  // product.price = req.body.price;
+  // product.countInStock = req.body.countInStock;
+  // product.brand = req.body.brand;
+  // product.category = req.body.category;
+  // product.description = req.body.description;
   product.user = req.user._id;
-  product.image = "http://localhost:8000/images/sample.png";
+  product.image = "/images/sample.png";
 
   const createdProduct = await product.save();
 
@@ -94,6 +111,40 @@ exports.createNewProduct = catchAsync(async (req, res) => {
     status: "success",
     data: {
       product: createdProduct,
+    },
+  });
+});
+
+/**
+ * @description Edit product details
+ * @route       PATCH /api/v1/products/:productId
+ * @access      admin
+ */
+exports.updateProductDetails = catchAsync(async (req, res, next) => {
+  const product = await Product.findById(req.params.productId);
+
+  if (!product) return next(new AppError("No such product exists!", 404));
+  console.log(req.body);
+  for (let field of productFields) {
+    if (!req.body[field]) continue;
+    console.log(req.body[field]);
+    product[field] = req.body[field];
+  }
+
+  // if (req.body.name) product.name = req.body.name;
+  // if (req.body.price) product.price = req.body.price;
+  // if (req.body.countInStock) product.countInStock = req.body.countInStock;
+  // if (req.body.brand) product.brand = req.body.brand;
+  // if (req.body.category) product.category = req.body.category;
+  // if (req.body.description) product.description = req.body.description;
+
+  await product.save();
+
+  console.log(product);
+  return res.status(201).json({
+    status: "success",
+    data: {
+      message: "Product updated successfully",
     },
   });
 });
