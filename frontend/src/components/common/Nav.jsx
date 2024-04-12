@@ -7,7 +7,7 @@ function Nav({ navTitle, children }) {
   return (
     <div className="relative">
       <button
-        className="text-lg hover:bg-primary-700 py-1 px-2 rounded-lg flex items-center gap-1"
+        className="text-lg hover:bg-primary-700 py-1 px-2 rounded-lg flex items-center gap-1 z-50"
         onClick={() => {
           setIsOpen((prev) => !prev);
         }}
@@ -18,7 +18,7 @@ function Nav({ navTitle, children }) {
       <div
         className={`${
           isOpen ? "block" : "hidden"
-        } absolute -right-2 mt-2 py-2 w-40 bg-secondary-100 border rounded shadow-lg z-10`}
+        } absolute -right-2 mt-2 py-2 w-40 bg-secondary-100 border rounded shadow-lg `}
       >
         {children}
       </div>

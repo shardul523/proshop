@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 
 import {
+  createNewProduct,
   deleteProduct,
   productLoader,
   productsLoader,
@@ -41,4 +42,22 @@ export function useProductDelete(productId) {
   });
 
   return { productDelete, isPending };
+}
+
+export function useProductCreate() {
+  const queryClient = useQueryClient();
+  const { mutate: createProduct, isPending } = useMutation({
+    mutationFn: createNewProduct,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["products"],
+      });
+      toast.success("Product Created");
+    },
+    onError: () => {
+      toast.error("Product could not be created");
+    },
+  });
+
+  return { createProduct, isPending };
 }

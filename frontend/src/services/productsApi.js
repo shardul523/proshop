@@ -29,3 +29,12 @@ export async function deleteProduct(productId) {
     throw new Error(err.message || err.error);
   }
 }
+
+export async function createNewProduct(data) {
+  try {
+    await axios.post(`${BASE_URL}/${PRODUCTS_BASE}`, data);
+  } catch (err) {
+    console.error(err);
+    throw new Error(err.message || err.error);
+  }
+}

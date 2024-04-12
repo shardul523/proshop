@@ -25,6 +25,7 @@ import AddProductForm from "./pages/admin/AddProductForm.jsx";
 
 import store from "./store.js";
 import "./index.css";
+import "./globals.css";
 
 const queryClient = new QueryClient();
 

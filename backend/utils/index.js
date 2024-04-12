@@ -10,3 +10,7 @@ exports.getProductImageName = (file, orderId) => {
   console.log(name);
   return name;
 };
+
+exports.decimalFormatter = (num) => {
+  return +(Math.round(num * 100) / 100).toFixed(2);
+};

@@ -8,11 +8,11 @@ import Navbar from "./Navbar";
 import Navlink from "./Navlink";
 import Badge from "../common/Badge";
 import UserNav from "../user/UserNav";
+import AdminNav from "../admin/AdminNav";
 
 import { useAllItemsQty } from "../../hooks";
 import { useProfile } from "../../hooks/userHooks";
 import logo from "../../assets/logo.png";
-import AdminNav from "../admin/AdminNav";
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -46,12 +46,12 @@ function Header() {
               </li>
             )}
             <li>
-              {!auth?.isLoggedIn ? (
+              {!auth?.isLoggedIn || !user ? (
                 <Navlink to={"/sign-in"}>
                   <FaUser /> Sign In
                 </Navlink>
               ) : (
-                user && <UserNav name={user.name} />
+                <UserNav name={user.name} />
               )}
             </li>
           </ul>

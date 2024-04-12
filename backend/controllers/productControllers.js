@@ -65,6 +65,8 @@ exports.deleteProductById = catchAsync(async (req, res) => {
 exports.createNewProduct = catchAsync(async (req, res) => {
   const product = new Product();
 
+  console.log(req.file);
+
   product.name = req.body.name;
   product.price = req.body.price;
   product.countInStock = req.body.countInStock;
@@ -72,7 +74,7 @@ exports.createNewProduct = catchAsync(async (req, res) => {
   product.category = req.body.category;
   product.description = req.body.description;
   product.user = req.user._id;
-  product.image = "/images/sample.png";
+  product.image = "http://localhost:8000/images/sample.png";
 
   const createdProduct = await product.save();
 

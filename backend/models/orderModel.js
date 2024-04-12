@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { decimalFormatter } = require("../utils");
 
 const orderItemSchema = new mongoose.Schema({
   product: {
@@ -67,20 +68,22 @@ const orderSchema = new mongoose.Schema(
 );
 
 orderSchema.virtual("totalPrice").get(function () {
-  return (
+  return decimalFormatter(
     this.orderItems.reduce(
       (acc, orderItem) => acc + orderItem.unitPrice * orderItem.quantity,
       0
     ) +
-    this.taxPrice +
-    this.shippingPrice
+      this.taxPrice +
+      this.shippingPrice
   );
 });
 
 orderSchema.pre("save", function (next) {
-  this.orderPrice = this.orderItems.reduce(
-    (acc, item) => acc + item.unitPrice * item.quantity,
-    0
+  this.orderPrice = decimalFormatter(
+    this.orderItems.reduce(
+      (acc, item) => acc + item.unitPrice * item.quantity,
+      0
+    )
   );
 
   this.taxPrice = +(Math.round(this.orderPrice * 15) / 100).toFixed(2);
