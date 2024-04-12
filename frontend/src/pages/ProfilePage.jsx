@@ -12,7 +12,7 @@ function ProfilePage() {
 
   return (
     <Container>
-      <div className="grid grid-cols-4 mx-10">
+      <div className="grid grid-cols-4 gap-10 mx-10">
         <UserProfileEdit user={user} />
         <div className="col-span-3">
           <UserOrdersList />

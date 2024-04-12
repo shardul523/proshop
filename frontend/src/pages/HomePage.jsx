@@ -15,7 +15,7 @@ function HomePage() {
       <h1 className="font-semibold text-primary-800 text-3xl mt-5 mb-10 lg:mx-0 mx-4">
         Latest Products
       </h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6 items-center place-items-center gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 items-center place-items-center gap-5">
         {allProducts.map((product) => (
           <ProductCard key={product._id} product={product} />
         ))}

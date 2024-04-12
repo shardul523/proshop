@@ -37,9 +37,9 @@ function UserNav({ name }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <div className="cursor-pointer text-lg hover:bg-primary-700 py-1 px-2 rounded-lg flex items-center gap-1">
+        <div className="cursor-pointer text-lg hover:bg-primary-700 py-1 px-2 rounded-lg flex items-center gap-2">
           <FaUser />
-          <span>{name}</span>
+          <span className="pt-1">{name}</span>
           <IoMdArrowDropdown />
         </div>
       </DropdownMenuTrigger>

@@ -42,6 +42,7 @@ function EditProductForm() {
     form.set("description", descriptionRef.current.value);
     form.set("price", +priceRef.current.value);
     form.set("countInStock", +stockRef.current.value);
+    form.set("product-image", imageRef.current.files[0]);
 
     productUpdate(form);
   };

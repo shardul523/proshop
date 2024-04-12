@@ -3,7 +3,12 @@ const fs = require("fs/promises");
 const path = require("path");
 
 const Product = require("../models/productModel");
-const { catchAsync, AppError, getProductImageName } = require("../utils");
+const {
+  catchAsync,
+  AppError,
+  getProductImageName,
+  deleteImage,
+} = require("../utils");
 
 const upload = multer();
 const productFields = [
@@ -14,6 +19,7 @@ const productFields = [
   "category",
   "description",
 ];
+const SAMPLE_IMAGE = "/images/sample.jpg";
 
 /**
  * @description UPLOAD PRODUCT IMAGE
@@ -21,6 +27,32 @@ const productFields = [
  * @access      ADMIN
  */
 exports.uploadProductImage = upload.single("product-image");
+
+/**
+ * @description Store the image of the file and change the product
+ * @route       MIDDLEWARE
+ * @access      admin
+ */
+exports.updateProductImage = catchAsync(async (req, res, next) => {
+  if (!req.file) return next();
+
+  const product = await Product.findById(req.params.productId);
+
+  if (!product) return next(new AppError("No such product exists", 400));
+
+  const imageName = getProductImageName(req.file, product._id);
+
+  await fs.writeFile(
+    path.join(__dirname, "..", "public", imageName),
+    req.file.buffer
+  );
+
+  product.image = imageName;
+
+  await product.save();
+
+  next();
+});
 
 /**
  * @description   GET ALL THE PRODUCTS
@@ -54,7 +86,17 @@ exports.getProductById = catchAsync(async function (req, res, next) {
  * @route   DELETE /api/v1/products/:productId
  * @access  ADMIN
  */
-exports.deleteProductById = catchAsync(async (req, res) => {
+exports.deleteProductById = catchAsync(async (req, res, next) => {
+  const product = await Product.findById(req.params.productId);
+
+  if (!product) return next(new AppError("No such product exists", 400));
+
+  const imageFile = product.image;
+
+  if (imageFile !== SAMPLE_IMAGE) {
+    await deleteImage(imageFile);
+  }
+
   await Product.findByIdAndDelete(req.params.productId);
 
   return res.status(204).json({
@@ -91,7 +133,7 @@ exports.createNewProduct = catchAsync(async (req, res, next) => {
   // product.category = req.body.category;
   // product.description = req.body.description;
   product.user = req.user._id;
-  product.image = "/images/sample.png";
+  product.image = SAMPLE_IMAGE;
 
   const createdProduct = await product.save();
 
@@ -124,7 +166,7 @@ exports.updateProductDetails = catchAsync(async (req, res, next) => {
   const product = await Product.findById(req.params.productId);
 
   if (!product) return next(new AppError("No such product exists!", 404));
-  console.log(req.body);
+
   for (let field of productFields) {
     if (!req.body[field]) continue;
     console.log(req.body[field]);
@@ -140,7 +182,6 @@ exports.updateProductDetails = catchAsync(async (req, res, next) => {
 
   await product.save();
 
-  console.log(product);
   return res.status(201).json({
     status: "success",
     data: {

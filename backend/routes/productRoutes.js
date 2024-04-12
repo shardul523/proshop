@@ -32,6 +32,7 @@ router
   .delete(controllers.product.deleteProductById)
   .patch(
     controllers.product.uploadProductImage,
+    controllers.product.updateProductImage,
     controllers.product.updateProductDetails
   );
 

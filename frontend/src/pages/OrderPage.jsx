@@ -4,9 +4,9 @@ import Container from "../components/common/Container";
 import Loader from "../components/ui/Loader";
 import OrderSummary from "../components/order/OrderSummary";
 import OrderOverview from "../components/order/OrderOverview";
+import BackButton from "@/components/common/BackButton";
 
 import { useGetOrderById } from "../hooks/orderHooks";
-import LinkButton from "@/components/common/LinkButton";
 
 function OrderPage() {
   const { orderId } = useParams();
@@ -20,8 +20,8 @@ function OrderPage() {
 
   return (
     <Container>
-      <LinkButton to={"/"}>Go Back</LinkButton>
-      <div className="flex flex-col lg:flex-none lg:grid grid-cols-7 px-20 mt-5 mb-1">
+      <BackButton />
+      <div className="flex flex-col lg:flex-none lg:grid grid-cols-7 px-20 mb-1">
         <div className="col-span-5">
           <OrderOverview order={order} />
         </div>

@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { decimalFormatter } = require("../utils");
 
 const reviewSchema = new mongoose.Schema(
   {
@@ -70,6 +71,11 @@ const productSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+productSchema.pre("save", function (next) {
+  this.price = decimalFormatter(this.price);
+  next();
+});
 
 const Product = mongoose.model("Product", productSchema);
 
