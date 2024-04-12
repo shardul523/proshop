@@ -4,7 +4,7 @@ import LinkButton from "./LinkButton";
 
 function BackButton() {
   return (
-    <LinkButton to={-1} variant={"neutral-rounded"}>
+    <LinkButton to={-1} replace variant={"neutral-rounded"}>
       <FaArrowLeft />
     </LinkButton>
   );

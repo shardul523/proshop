@@ -22,12 +22,12 @@ function ProductCard({ product }) {
           {product.name}
         </Link>
       </CardContent>
-      <CardFooter className="flex flex-col p-4 pt-0 gap-3">
+      <CardFooter className="flex flex-col p-4 pt-0 gap-3 items-start">
         <Rating
           rating={product.rating}
           text={`${product.numReviews} reviews`}
         />
-        <span className="text-lg font-medium">${product.price}</span>
+        <span className="text-lg font-medium ">${product.price}</span>
       </CardFooter>
     </Card>
     // <div className=" flex flex-col max-w-56 bg-white px-4 py-3 rounded-md">
