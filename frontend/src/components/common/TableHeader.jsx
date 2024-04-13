@@ -6,7 +6,7 @@ function TableHeader({ headings = defaultHeadings }) {
       <tr>
         {headings.map((heading, i) => (
           <th scope="col" key={i} className="px-6 py-3">
-            {heading}
+            {heading.toUpperCase()}
           </th>
         ))}
       </tr>

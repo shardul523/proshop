@@ -15,7 +15,6 @@ export function useAllProducts() {
     queryKey: ["products"],
     queryFn: productsLoader,
   });
-
   return { allProducts, isPending };
 }
 

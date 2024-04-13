@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export function storeLocalCart(state) {
   localStorage.setItem("state", JSON.stringify(state));
 }
@@ -31,3 +33,14 @@ export function getFullAddress(shippingAddress) {
 
   return `${address}, ${city}, ${state}, ${country} - ${postalCode}`;
 }
+
+export const api = async (method, url, details) => {
+  try {
+    const res = await axios({ method, url, data: details });
+    const { data } = res;
+    return data;
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+};

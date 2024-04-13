@@ -23,9 +23,9 @@ import UsersList from "./pages/admin/UsersList.jsx";
 import ProductsList from "./pages/admin/ProductsList.jsx";
 import AddProductForm from "./pages/admin/AddProductForm.jsx";
 import EditProductForm from "./pages/admin/EditProductForm.jsx";
+import EditUserForm from "./pages/admin/EditUserForm.jsx";
 
 import store from "./store.js";
-import "./index.css";
 import "./globals.css";
 
 const queryClient = new QueryClient();
@@ -53,13 +53,18 @@ ReactDOM.createRoot(document.getElementById("root")).render(
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/admin" element={<AdminRoute />}>
                   <Route path="orders" element={<OrdersList />} />
-                  <Route path="users" element={<UsersList />} />
-                  <Route path="products" element={<ProductsList />} />
-                  <Route path="products/new" element={<AddProductForm />} />
-                  <Route
-                    path="products/:productId/edit"
-                    element={<EditProductForm />}
-                  />
+                  <Route path="users">
+                    <Route index element={<UsersList />} />
+                    <Route path=":userId/edit" element={<EditUserForm />} />
+                  </Route>
+                  <Route path="products">
+                    <Route index element={<ProductsList />} />
+                    <Route path="new" element={<AddProductForm />} />
+                    <Route
+                      path=":productId/edit"
+                      element={<EditProductForm />}
+                    />
+                  </Route>
                 </Route>
               </Route>
               <Route path="*" element={<Navigate to={"/"} replace />} />

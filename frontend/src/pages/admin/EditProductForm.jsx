@@ -35,7 +35,6 @@ function EditProductForm() {
 
     const form = new FormData();
 
-    console.log(descriptionRef.current.value);
     form.set("name", nameRef.current.value);
     form.set("brand", brandRef.current.value);
     form.set("category", categoryRef.current.value);
