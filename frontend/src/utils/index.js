@@ -34,9 +34,9 @@ export function getFullAddress(shippingAddress) {
   return `${address}, ${city}, ${state}, ${country} - ${postalCode}`;
 }
 
-export const api = async (method, url, details) => {
+export const api = async (method, url, details, params) => {
   try {
-    const res = await axios({ method, url, data: details });
+    const res = await axios({ method, url, data: details, params });
     const { data } = res;
     return data;
   } catch (err) {

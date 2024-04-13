@@ -60,12 +60,16 @@ exports.updateProductImage = catchAsync(async (req, res, next) => {
  * @access        PUBLIC
  */
 exports.getAllProducts = catchAsync(async function (req, res, next) {
-  const products = await Product.find();
+  const pageSize = 5;
+  const docCount = await Product.countDocuments();
 
-  return res.status(200).json({
-    status: "success",
-    data: { products },
-  });
+  const pageNumber = req.query.page || 1;
+
+  const products = await Product.find()
+    .limit(pageSize)
+    .skip((pageNumber - 1) * pageSize);
+
+  return res.status(200).json({ products, count: docCount });
 });
 
 /**

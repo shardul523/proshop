@@ -1,10 +1,13 @@
+import { useSearchParams } from "react-router-dom";
+
 import ProductCard from "../components/products/ProductCard";
 import Loader from "../components/ui/Loader";
 import Container from "../components/common/Container";
 import { useAllProducts } from "../hooks/productsHooks";
 
 function HomePage() {
-  const { allProducts, isPending } = useAllProducts();
+  const [searchParams] = useSearchParams();
+  const { allProducts, isPending } = useAllProducts(searchParams.get("page"));
 
   if (isPending) return <Loader />;
 

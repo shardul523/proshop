@@ -6,18 +6,22 @@ import {
   createNewProduct,
   deleteProduct,
   productLoader,
-  productsLoader,
   updateProduct,
 } from "../services/productsApi";
 import { api } from "../utils";
 import { BASE_URL } from "../services/constants.json";
 
-export function useAllProducts() {
-  const { data: allProducts, isPending } = useQuery({
+export function useAllProducts(page) {
+  const [method, url] = ["GET", `${BASE_URL}/products`];
+  const { data, isPending } = useQuery({
     queryKey: ["products"],
-    queryFn: productsLoader,
+    queryFn: () => api(method, url, undefined, { page }),
   });
-  return { allProducts, isPending };
+
+  const allProducts = data?.products;
+  const pageCount = data?.count;
+
+  return { isPending, allProducts, pageCount };
 }
 
 export function useProduct(productId) {
