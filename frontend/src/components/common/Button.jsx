@@ -1,7 +1,7 @@
 const variants = {
   default:
     "gap-2 px-3 py-2 rounded text-secondary-100 bg-primary-500 hover:bg-primary-600 active:bg-primary-700",
-  pill: "bg-primary-500 text-secondary-100 rounded-2xl p-1",
+  pill: "bg-primary-500 text-secondary-100 rounded-2xl p-1 disabled:bg-primary-300",
   pillDisabled: "bg-secondary-200 text-secondary-400 p-1 rounded-2xl",
   outline:
     "border border-primary-500 px-3 py-2 rounded hover:bg-primary-600 hover:text-secondary-100",
@@ -11,7 +11,7 @@ const variants = {
   "neutral-rounded":
     "text-secondary-600 bg-secondary-200 hover:bg-secondary-300 p-3 rounded-full",
   "icon-danger":
-    "p-1 rounded bg-red-600 text-white hover:bg-red-500 active:bg-red-400",
+    "p-1 rounded bg-red-600 text-white hover:bg-red-500 active:bg-red-400 disabled:bg-secondary-300",
 };
 
 function Button({ children, onClick, variant, disabled, ...props }) {

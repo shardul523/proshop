@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 import { unauthenticate } from "../components/user/authSlice";
 import { getUserProfile } from "../services/authApi";
@@ -62,10 +63,10 @@ export const useProfile = () => {
 
 export const useUserDelete = (userId) => {
   const method = "DELETE";
-  const url = `${BASE_URL}/users/${userId}122`;
+  const url = `${BASE_URL}/users/${userId}`;
   const queryClient = useQueryClient();
   const { mutate: userDelete, isPending } = useMutation({
-    mutationFn: api(method, url),
+    mutationFn: () => api(method, url),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["users"],
@@ -82,6 +83,7 @@ export const useUserDelete = (userId) => {
 export const useUpdateUserById = (userId) => {
   const [method, url] = ["PATCH", `${BASE_URL}/users/${userId}`];
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
   const { mutate: updateUser, isPending } = useMutation({
     mutationFn: (details) => api(method, url, details),
     onSuccess: () => {
@@ -89,6 +91,7 @@ export const useUpdateUserById = (userId) => {
         queryKey: ["user", userId],
       });
       toast.success("User updated successfully");
+      navigate("/admin/users");
     },
     onError: () => {
       toast.error("User could not be updated");
@@ -99,12 +102,12 @@ export const useUpdateUserById = (userId) => {
 
 export const useUserById = (userId) => {
   const [method, url] = ["GET", `${BASE_URL}/users/${userId}`];
-  const { data, isPending } = useQuery({
+  const { data, isPending, isFetching } = useQuery({
     queryKey: ["user", userId],
     queryFn: () => api(method, url),
   });
 
   const user = data?.user;
 
-  return { user, isPending };
+  return { user, isPending, isFetching };
 };

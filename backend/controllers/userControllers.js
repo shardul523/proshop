@@ -64,12 +64,19 @@ exports.getAllUsers = catchAsync(async (req, res) => {
  * @route    DELETE /users/:userId
  * @access   ADMIN
  */
-exports.deleteUserById = catchAsync(async (req, res) => {
-  await User.findByIdAndDelete(req.params.userId);
-  return res.status(204).json({
+exports.deleteUserById = catchAsync(async (req, res, next) => {
+  const user = User.findById(req.params.userId);
+
+  if (user.isAdmin)
+    return next(new AppError("Admin users cannot be deleted", 400));
+
+  await User.findByIdAndDelete(user._id);
+
+  return res.status(201).json({
     status: "success",
     data: {
       message: "User deleted successfully",
+      user,
     },
   });
 });
@@ -93,13 +100,12 @@ exports.getUserById = catchAsync(async (req, res, next) => {
  * @access      admin
  */
 exports.updateUserById = catchAsync(async (req, res, next) => {
-  const { name, email, password, isAdmin } = req.body;
+  const { email, password, isAdmin } = req.body;
 
   const user = await User.findById(req.params.userId);
 
   if (!user) return next(new AppError("No such user exists", 404));
 
-  if (name) user.name = name;
   if (email) user.email = email;
   if (password) user.password = password;
   if (isAdmin === true || isAdmin === false) user.isAdmin = isAdmin;

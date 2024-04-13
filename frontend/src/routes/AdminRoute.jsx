@@ -9,7 +9,7 @@ function AdminRoute() {
 
   if (isLoading) return <Loader />;
 
-  if (user.isAdmin) return <Outlet />;
+  if (user?.isAdmin) return <Outlet />;
 
   return <Navigate to={"/"} />;
 }

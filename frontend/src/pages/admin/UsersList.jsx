@@ -11,8 +11,6 @@ function UsersList() {
 
   if (isPending) return <Loader />;
 
-  console.log(users);
-
   return (
     <>
       <h2 className="text-3xl font-semibold my-5">Users</h2>

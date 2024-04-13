@@ -1,34 +1,52 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { useParams } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
-import FormRadioInput from "@/components/common/FormRadioInput";
 import FormContainer from "@/components/common/FormContainer";
 import Form from "@/components/common/Form";
 import FormInput from "@/components/common/FormInput";
 import Button from "@/components/common/Button";
 import Loader from "@/components/ui/Loader";
 
-import { useUserById } from "@/hooks/userHooks";
+import { useUserById, useUpdateUserById } from "@/hooks/userHooks";
 
 function EditUserForm() {
-  const nameRef = useRef();
   const emailRef = useRef();
   const passRef = useRef();
   const confirmPassRef = useRef();
+  const adminRef = useRef();
   const { userId } = useParams();
-  const { user, isPending } = useUserById(userId);
-  const [selectedOption, setSelectedOption] = useState();
+  const { user, isPending: isUserLoading, isFetching } = useUserById(userId);
+  const { updateUser, isPending: isUserUpdating } = useUpdateUserById(userId);
 
-  useEffect(() => setSelectedOption(user?.isAdmin ? "y" : "n"), [user]);
+  const onEditHandler = (e) => {
+    e.preventDefault();
+
+    const email = emailRef.current.value;
+    const password = passRef.current.value;
+    const confirmPassword = confirmPassRef.current.value;
+    const isAdmin = adminRef.current.checked;
+
+    if (!email) return toast.error("Name and email should be empty!");
+
+    if (password !== confirmPassword)
+      return toast.error("Password fields do not match");
+
+    updateUser({ email, password, isAdmin });
+  };
+
+  const isPending = isUserLoading || isUserUpdating || isFetching;
 
   if (isPending) return <Loader />;
 
-  const { name, email } = user;
+  const { email, isAdmin } = user;
 
   return (
-    <FormContainer formTitle={"Edit Product"} className={" max-w-xl mx-auto"}>
+    <FormContainer
+      formTitle={"Edit User Details"}
+      className={" max-w-xl mx-auto"}
+    >
       <Form className={"mx-auto max-w-md"}>
-        <FormInput label={"Name"} inputRef={nameRef} defaultValue={name} />
         <FormInput
           type="email"
           label={"Email"}
@@ -41,27 +59,14 @@ function EditUserForm() {
           label={"Confirm Password"}
           inputRef={confirmPassRef}
         />
-        <div className="flex gap-10">
+        <div className="flex gap-2 mt-2 mx-2">
+          <input type="checkbox" defaultChecked={isAdmin} ref={adminRef} />
           <span>Is Admin?</span>
-          <div className="flex gap-5">
-            <FormRadioInput
-              label={"Yes"}
-              value={"y"}
-              name={"isAdmin"}
-              selectedOption={selectedOption}
-              handleChange={() => setSelectedOption("y")}
-            />
-            <FormRadioInput
-              label={"No"}
-              value={"n"}
-              name={"isAdmin"}
-              selectedOption={selectedOption}
-              handleChange={() => setSelectedOption("n")}
-            />
-          </div>
         </div>
         <div className="mt-3 flex justify-end">
-          <Button disabled={isPending}>Edit User</Button>
+          <Button disabled={isPending} onClick={onEditHandler}>
+            Edit User
+          </Button>
         </div>
       </Form>
     </FormContainer>
