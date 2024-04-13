@@ -9,6 +9,8 @@ import {
   productsLoader,
   updateProduct,
 } from "../services/productsApi";
+import { api } from "../utils";
+import { BASE_URL } from "../services/constants.json";
 
 export function useAllProducts() {
   const { data: allProducts, isPending } = useQuery({
@@ -87,3 +89,34 @@ export function useProductUpdate(productId) {
 
   return { productUpdate, isPending };
 }
+
+export const useProductReviews = (productId) => {
+  const [method, url] = ["GET", `${BASE_URL}/products/${productId}/reviews`];
+  const { data, isPending, isFetching } = useQuery({
+    queryKey: ["reviews", productId],
+    queryFn: () => api(method, url),
+  });
+
+  const reviews = data?.reviews;
+
+  return { reviews, isPending, isFetching };
+};
+
+export const useAddProductReview = (productId) => {
+  const [method, url] = ["POST", `${BASE_URL}/products/${productId}/reviews`];
+
+  const queryClient = useQueryClient();
+
+  const { mutate: addProduct, isPending } = useMutation({
+    mutationFn: (details) => api(method, url, details),
+    onSuccess: () => {
+      toast.success("Review posted");
+      queryClient.invalidateQueries({
+        queryKey: ["reviews", productId],
+      });
+    },
+    onError: () => toast.error("Review could not be posted"),
+  });
+
+  return { addProduct, isPending };
+};

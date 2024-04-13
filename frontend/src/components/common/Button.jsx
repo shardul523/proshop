@@ -9,9 +9,9 @@ const variants = {
   neutral:
     "px-3 py-2 rounded text-secondary-700 bg-secondary-300 hover:bg-secondary-400 hover:text-secondary-800",
   "neutral-rounded":
-    "text-secondary-600 bg-secondary-200 hover:bg-secondary-300 p-3 rounded-full",
+    "text-secondary-600 bg-secondary-100 hover:bg-secondary-200 p-3 rounded-full",
   "icon-danger":
-    "p-1 rounded bg-red-600 text-white hover:bg-red-500 active:bg-red-400 disabled:bg-secondary-300",
+    "p-1 rounded bg-red-400 text-white hover:bg-red-300 active:bg-red-200 disabled:bg-secondary-100",
 };
 
 function Button({ children, onClick, variant, disabled, ...props }) {

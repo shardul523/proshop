@@ -68,6 +68,11 @@ exports.getAllProducts = catchAsync(async function (req, res, next) {
   });
 });
 
+/**
+ * @description   Get Product By ID
+ * @route         GET /api/v1/products/:productId
+ * @access        admin
+ */
 exports.getProductById = catchAsync(async function (req, res, next) {
   const { productId } = req.params;
 
@@ -180,7 +185,7 @@ exports.updateProductDetails = catchAsync(async (req, res, next) => {
 /**
  * @description Create a new review
  * @route       POST /products/:productId/reviews
- * @access      Private
+ * @access      private
  */
 exports.createNewReview = catchAsync(async (req, res, next) => {
   const product = await Product.findById(req.params.productId);
@@ -204,5 +209,38 @@ exports.createNewReview = catchAsync(async (req, res, next) => {
   return res.status(201).json({
     message: "Review added",
     review: reviews.at(-1),
+  });
+});
+
+/**
+ * @description   Get reviews of a product
+ * @route         GET /api/v1/products/:productId/reviews
+ * @access        public
+ */
+exports.getReviews = catchAsync(async (req, res, next) => {
+  const product = await Product.findById(req.params.productId).populate({
+    path: "reviews",
+    populate: "user",
+  });
+
+  if (!product) return next(new AppError("No such product exists!", 404));
+
+  const reviewsResponse = product?.reviews.map((review) => {
+    return {
+      user: {
+        id: review.user._id,
+        name: review.user.name,
+      },
+      reviewId: review._id,
+      rating: review.rating,
+      title: review.title,
+      description: review.description,
+      createdAt: review.createdAt,
+    };
+  });
+
+  return res.status(200).json({
+    reviews: reviewsResponse,
+    message: "Reviews returned",
   });
 });

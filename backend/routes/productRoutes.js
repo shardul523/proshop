@@ -8,6 +8,8 @@ router.get("/", controllers.product.getAllProducts);
 
 router.get("/:productId", controllers.product.getProductById);
 
+router.get("/:productId/reviews", controllers.product.getReviews);
+
 router.use(controllers.auth.protect);
 
 router.post("/:productId/reviews", controllers.product.createNewReview);

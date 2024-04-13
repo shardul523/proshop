@@ -6,7 +6,11 @@ function ProductDeleteButton({ productId }) {
   const { productDelete, isPending } = useProductDelete(productId);
 
   return (
-    <Button variant={"icon"} onClick={productDelete} disabled={isPending}>
+    <Button
+      variant={"icon-danger"}
+      onClick={productDelete}
+      disabled={isPending}
+    >
       <FaTrashAlt />
     </Button>
   );
