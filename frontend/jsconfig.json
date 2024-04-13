@@ -6,6 +6,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["node_modules"],
-  "exclude": ["dist"]
+  "include": ["./node_modules"],
+  "exclude": ["dist", "../node_modules"]
 }

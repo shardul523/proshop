@@ -5,21 +5,14 @@ const controllers = require("../controllers/index.js");
 const router = Router();
 
 router.get("/", controllers.product.getAllProducts);
-// .post(
-//   controllers.auth.protect,
-//   controllers.auth.authorize,
-//   controllers.product.uploadProductImage,
-//   controllers.product.createNewProduct
-// );
 
 router.get("/:productId", controllers.product.getProductById);
-// .delete(
-//   controllers.auth.protect,
-//   controllers.auth.authorize,
-//   controllers.product.deleteProductById
-// );
 
-router.use(controllers.auth.protect, controllers.auth.authorize);
+router.use(controllers.auth.protect);
+
+router.post("/:productId/reviews", controllers.product.createNewReview);
+
+router.use(controllers.auth.authorize);
 
 router.post(
   "/",

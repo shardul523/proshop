@@ -126,12 +126,6 @@ exports.createNewProduct = catchAsync(async (req, res, next) => {
     product[field] = req.body[field];
   }
 
-  // product.name = req.body.name;
-  // product.price = req.body.price;
-  // product.countInStock = req.body.countInStock;
-  // product.brand = req.body.brand;
-  // product.category = req.body.category;
-  // product.description = req.body.description;
   product.user = req.user._id;
   product.image = SAMPLE_IMAGE;
 
@@ -173,13 +167,6 @@ exports.updateProductDetails = catchAsync(async (req, res, next) => {
     product[field] = req.body[field];
   }
 
-  // if (req.body.name) product.name = req.body.name;
-  // if (req.body.price) product.price = req.body.price;
-  // if (req.body.countInStock) product.countInStock = req.body.countInStock;
-  // if (req.body.brand) product.brand = req.body.brand;
-  // if (req.body.category) product.category = req.body.category;
-  // if (req.body.description) product.description = req.body.description;
-
   await product.save();
 
   return res.status(201).json({
@@ -187,5 +174,35 @@ exports.updateProductDetails = catchAsync(async (req, res, next) => {
     data: {
       message: "Product updated successfully",
     },
+  });
+});
+
+/**
+ * @description Create a new review
+ * @route       POST /products/:productId/reviews
+ * @access      Private
+ */
+exports.createNewReview = catchAsync(async (req, res, next) => {
+  const product = await Product.findById(req.params.productId);
+
+  if (!product) return next(new AppError("No such product exists", 404));
+
+  const { reviews } = product;
+
+  const { title, description, rating } = req.body;
+
+  const reviewFound = reviews.find(
+    (review) => review.user.toString() === req.user._id.toString()
+  );
+
+  if (reviewFound) return next(new AppError("Product already reviewed", 400));
+
+  reviews.push({ user: req.user._id, title, description, rating });
+
+  await product.save();
+
+  return res.status(201).json({
+    message: "Review added",
+    review: reviews.at(-1),
   });
 });

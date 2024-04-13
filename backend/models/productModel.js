@@ -77,6 +77,17 @@ productSchema.pre("save", function (next) {
   next();
 });
 
+productSchema.pre("save", function (next) {
+  this.numReviews = this.reviews.length;
+  const totalRating = this.reviews.reduce(
+    (acc, review) => acc + review.rating,
+    0
+  );
+  this.rating = decimalFormatter(totalRating / this.numReviews);
+
+  next();
+});
+
 const Product = mongoose.model("Product", productSchema);
 
 module.exports = Product;
