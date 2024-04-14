@@ -2,9 +2,9 @@ import { FaArrowLeft } from "react-icons/fa6";
 
 import LinkButton from "./LinkButton";
 
-function BackButton() {
+function BackButton({ to }) {
   return (
-    <LinkButton to={-1} replace variant={"neutral-rounded"}>
+    <LinkButton to={to ? to : -1} replace variant={"neutral-rounded"}>
       <FaArrowLeft />
     </LinkButton>
   );

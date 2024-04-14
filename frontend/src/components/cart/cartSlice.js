@@ -42,14 +42,15 @@ const cartSlice = createSlice({
         const currItem = state.cartItems.find(
           (item) => item.product === product
         );
-        if (!currItem) return;
+        console.log(currItem.quantity);
         if (currItem.quantity === 1) {
-          state.cart = state.cartItems.filter(
+          state.cartItems = state.cartItems.filter(
             (item) => item.product !== product
           );
         } else {
           currItem.quantity--;
         }
+        if (!currItem) return;
         storeLocalCart(state);
       },
     },

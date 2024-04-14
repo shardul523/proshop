@@ -65,7 +65,6 @@ exports.updateProductImage = catchAsync(async (req, res, next) => {
  */
 exports.getAllProducts = catchAsync(async function (req, res) {
   const { search = "", page = 1 } = req.query;
-  // console.log(search, page);
   const pageSize = search ? PAGE_SIZE.search : PAGE_SIZE.default;
   const nameQuery = { name: { $regex: search, $options: "i" } };
 
@@ -143,8 +142,6 @@ exports.deleteProductById = catchAsync(async (req, res, next) => {
 exports.createNewProduct = catchAsync(async (req, res, next) => {
   const product = new Product();
 
-  console.log(req.file);
-
   for (let field of productFields) {
     if (!req.body[field])
       return next(
@@ -191,7 +188,6 @@ exports.updateProductDetails = catchAsync(async (req, res, next) => {
 
   for (let field of productFields) {
     if (!req.body[field]) continue;
-    console.log(req.body[field]);
     product[field] = req.body[field];
   }
 

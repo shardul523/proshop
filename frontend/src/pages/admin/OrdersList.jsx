@@ -33,7 +33,7 @@ function OrdersList() {
                   {order._id}
                 </Link>
               </Td>
-              <Td>{order.user.name}</Td>
+              <Td>{order.user?.name}</Td>
               <Td>{new Date(order.createdAt).toLocaleDateString()}</Td>
               <Td>$ {order.totalPrice}</Td>
               <Td>{order.paidAt ? order.paidAt : "No"}</Td>

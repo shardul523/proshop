@@ -34,8 +34,6 @@ function AddProductForm() {
     if (!name || !price || !brand || !category || !description || !countInStock)
       return toast.error("None of the fields should be empty");
 
-    console.log(name, price, brand, category, image, description, countInStock);
-
     const form = new FormData();
 
     form.set("name", name);

@@ -41,7 +41,6 @@ export async function createNewProduct(data) {
 
 export async function updateProduct(productId, details) {
   try {
-    console.log(details);
     await axios.patch(`${BASE_URL}/${PRODUCTS_BASE}/${productId}`, details);
   } catch (err) {
     console.error(err);

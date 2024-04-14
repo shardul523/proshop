@@ -5,7 +5,7 @@ import CartOverview from "../components/cart/CartOverview";
 function CartPage() {
   return (
     <Container>
-      <div className="lg:grid lg:flex-none flex flex-col grid-cols-5 gap-5 w-full px-4 lg:px-10">
+      <div className="lg:grid lg:flex-none flex flex-col grid-cols-5 gap-5 w-full">
         <div className="col-span-3 flex flex-col gap-5">
           <ShoppingCart />
         </div>

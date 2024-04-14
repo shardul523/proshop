@@ -77,8 +77,6 @@ exports.logout = catchAsync((req, res) => {
  * @access  PUBLIC
  */
 exports.protect = catchAsync((req, res, next) => {
-  console.log("Authenticating User");
-
   let token;
 
   if (req.cookies.jwt) token = req.cookies.jwt;
@@ -94,7 +92,6 @@ exports.protect = catchAsync((req, res, next) => {
 
     if (!user) return next(new AppError("Invalid Token", 404));
 
-    console.log("User authenticated");
     req.user = user;
 
     next();

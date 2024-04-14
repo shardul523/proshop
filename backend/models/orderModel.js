@@ -90,7 +90,6 @@ orderSchema.pre("save", function (next) {
 
   this.shippingPrice = this.orderPrice < 100 ? 30 : 0;
 
-  console.log(this.orderPrice);
   next();
 });
 

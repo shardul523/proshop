@@ -16,7 +16,6 @@ export const useLogin = () => {
   const { mutate: userLogin, status } = useMutation({
     mutationFn: login,
     onSuccess: (userId) => {
-      console.log(userId);
       toast.success("User logged in successfully");
       dispatch(authenticate(userId));
     },

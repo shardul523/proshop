@@ -2,21 +2,22 @@ import { useRef } from "react";
 import { FaSearch } from "react-icons/fa";
 import { useSearchParams } from "react-router-dom";
 
-function SearchBox() {
+function SearchBox({ mobileOnly }) {
   const inputRef = useRef();
   const [, setSearchParams] = useSearchParams();
 
   const onSearchHandler = (e) => {
     e.preventDefault();
     setSearchParams({ search: inputRef.current.value, page: 1 });
-    console.log(inputRef.current.value);
   };
 
   return (
     <form
       onSubmit={onSearchHandler}
       role="searchbox"
-      className=" hidden sm:flex flex-1 max-w-screen-sm bg-secondary-100 rounded-3xl"
+      className={`${
+        mobileOnly ? "flex md:hidden" : "hidden md:flex"
+      } flex-1 max-w-screen-sm bg-secondary-100 rounded-3xl`}
     >
       <input
         ref={inputRef}

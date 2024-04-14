@@ -16,7 +16,7 @@ export function useAllProducts() {
   const [searchParams] = useSearchParams();
   const page = searchParams.get("page") || 1;
   const search = searchParams.get("search") || "";
-  const [pageCount, setPageCount] = useState(1);
+  const [pageCount, setPageCount] = useState(0);
 
   const [method, url] = ["GET", `${BASE_URL}/products`];
 

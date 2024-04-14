@@ -9,7 +9,7 @@ function CartItemsTable({ cartItems }) {
       <TableHeader />
       <TableBody>
         {cartItems.map((item) => (
-          <CartTableRow item={item} key={item._id} />
+          <CartTableRow item={item} key={item.product} />
         ))}
       </TableBody>
     </Table>

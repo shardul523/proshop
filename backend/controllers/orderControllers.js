@@ -8,11 +8,8 @@ const { AppError, catchAsync } = require("../utils");
  */
 exports.createNewOrder = catchAsync(async (req, res, next) => {
   const { cart } = req.body;
-  // console.log(cart);
   const { cartItems: orderItems, shippingAddress, paymentMethod } = cart;
   const user = req.user._id;
-
-  // console.log(orderItems, shippingAddress, paymentMethod);
 
   if (!orderItems || orderItems.length === 0)
     return next(new AppError("No order items found!", 400));
@@ -23,8 +20,6 @@ exports.createNewOrder = catchAsync(async (req, res, next) => {
     shippingAddress,
     paymentMethod,
   });
-
-  // console.log(newOrder);
 
   res.status(201).json({
     status: "success",
@@ -111,8 +106,6 @@ exports.updateOrderToPaid = catchAsync(async (req, res, next) => {
  */
 exports.updateOrderToDelivered = catchAsync(async (req, res) => {
   const { orderId } = req.params;
-
-  console.log(orderId);
 
   const order = await Order.findById(orderId);
 

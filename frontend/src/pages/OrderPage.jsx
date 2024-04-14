@@ -7,8 +7,10 @@ import OrderOverview from "../components/order/OrderOverview";
 import BackButton from "@/components/common/BackButton";
 
 import { useGetOrderById } from "../hooks/orderHooks";
+import { useProfile } from "../hooks/userHooks";
 
 function OrderPage() {
+  const { user } = useProfile();
   const { orderId } = useParams();
   const { order, isPending, isError } = useGetOrderById(orderId);
 
@@ -16,11 +18,9 @@ function OrderPage() {
 
   if (isError) return <Navigate to={"/"} replace />;
 
-  console.log(order);
-
   return (
     <Container>
-      <BackButton />
+      <BackButton to={user.isAdmin ? -1 : "/profile"} />
       <div className="flex flex-col lg:flex-none lg:grid grid-cols-7 px-20 mb-1">
         <div className="col-span-5">
           <OrderOverview order={order} />

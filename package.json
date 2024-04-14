@@ -10,7 +10,8 @@
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "data:import": "node backend/seeder.js data:import",
     "data:destroy": "node backend/seeder.js data:destroy",
-    "order:import": "node backend/seeder.js order:import"
+    "order:import": "node backend/seeder.js order:import",
+    "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend"
   },
   "author": "Shardul Sisodiya",
   "license": "MIT",

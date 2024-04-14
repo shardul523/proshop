@@ -7,6 +7,8 @@ function Paginate({ pages }) {
   const activePage = searchParams.get("page") || 1;
   const activeSearch = searchParams.get("search") || "";
 
+  if (pages?.length < 2) return;
+
   return (
     <nav
       aria-label="pagination"
