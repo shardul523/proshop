@@ -7,3 +7,5 @@ A single vendor e-commerce application made using the MERN stack.
 - Transition between pages
 - Saving multiple shipping addresses
 - Refactoring a lot of code
+- Offline Support
+- On logout clear cart
