@@ -12,14 +12,16 @@ const variants = {
     "text-secondary-600 bg-secondary-100 hover:bg-secondary-200 p-3 rounded-full",
   "icon-danger":
     "p-1 rounded bg-red-400 text-white hover:bg-red-300 active:bg-red-200 disabled:bg-secondary-100",
+  "paginate-link": "px-2 py-1 rounded hover:bg-secondary-300 hover:shadow-lg",
+  "paginate-active-link": "bg-primary-500 text-secondary-50 rounded px-2 py-1",
 };
 
-function Button({ children, onClick, variant, disabled, ...props }) {
+function Button({ children, onClick, variant, disabled, className, ...props }) {
   return (
     <button
       className={`flex place-content-center items-center ${
         variant ? variants[variant] : variants.default
-      }`}
+      } ${className}`}
       disabled={disabled}
       onClick={onClick}
       {...props}

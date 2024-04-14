@@ -4,14 +4,19 @@ import ProductCard from "../components/products/ProductCard";
 import Loader from "../components/ui/Loader";
 import Container from "../components/common/Container";
 import { useAllProducts } from "../hooks/productsHooks";
+import Paginate from "../components/ui/Paginate";
 
 function HomePage() {
   const [searchParams] = useSearchParams();
-  const { allProducts, isPending } = useAllProducts(searchParams.get("page"));
+  const { allProducts, isPending, pageCount } = useAllProducts(
+    searchParams.get("page")
+  );
 
   if (isPending) return <Loader />;
 
   if (!allProducts) return <p>No products found</p>;
+
+  const pages = Array.from({ length: pageCount }, (_, i) => i + 1);
 
   return (
     <Container>
@@ -23,6 +28,7 @@ function HomePage() {
           <ProductCard key={product._id} product={product} />
         ))}
       </div>
+      <Paginate pages={pages} />
     </Container>
   );
 }

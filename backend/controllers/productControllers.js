@@ -69,7 +69,9 @@ exports.getAllProducts = catchAsync(async function (req, res, next) {
     .limit(pageSize)
     .skip((pageNumber - 1) * pageSize);
 
-  return res.status(200).json({ products, count: docCount });
+  return res
+    .status(200)
+    .json({ products, count: Math.ceil(docCount / pageSize) });
 });
 
 /**

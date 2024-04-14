@@ -14,7 +14,7 @@ import { BASE_URL } from "../services/constants.json";
 export function useAllProducts(page) {
   const [method, url] = ["GET", `${BASE_URL}/products`];
   const { data, isPending } = useQuery({
-    queryKey: ["products"],
+    queryKey: ["products", page],
     queryFn: () => api(method, url, undefined, { page }),
   });
 
