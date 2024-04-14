@@ -60,7 +60,7 @@ exports.updateProductImage = catchAsync(async (req, res, next) => {
  * @access        PUBLIC
  */
 exports.getAllProducts = catchAsync(async function (req, res, next) {
-  const pageSize = 5;
+  const pageSize = 4;
   const docCount = await Product.countDocuments();
 
   const pageNumber = req.query.page || 1;

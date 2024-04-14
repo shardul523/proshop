@@ -10,16 +10,20 @@ import {
 } from "../services/productsApi";
 import { api } from "../utils";
 import { BASE_URL } from "../services/constants.json";
+import { useEffect, useState } from "react";
 
 export function useAllProducts(page) {
   const [method, url] = ["GET", `${BASE_URL}/products`];
+  const [pageCount, setPageCount] = useState(1);
   const { data, isPending } = useQuery({
     queryKey: ["products", page],
     queryFn: () => api(method, url, undefined, { page }),
   });
 
+  useEffect(() => setPageCount(data?.count), [data?.count]);
+
   const allProducts = data?.products;
-  const pageCount = data?.count;
+  // const pageCount = data?.count;
 
   return { isPending, allProducts, pageCount };
 }

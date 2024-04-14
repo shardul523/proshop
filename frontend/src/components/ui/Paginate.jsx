@@ -4,21 +4,26 @@ import { useSearchParams } from "react-router-dom";
 
 function Paginate({ pages }) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const activePage = searchParams.get("page");
+  const activePage = searchParams.get("page") || 1;
 
   return (
     <nav
       aria-label="pagination"
       role="navigation"
-      className="mx-auto flex w-full justify-center"
+      className="mx-auto flex w-full justify-center mt-5"
     >
-      <ul className="flex flex-row items-center gap-1">
+      <ul className="flex flex-row items-center gap-3">
         <li>
           <Button
             role="nav-link"
             aria-label="Go to previous page"
-            className="mr-1.5"
+            className="mr-5"
             variant={"paginate-link"}
+            onClick={() =>
+              setSearchParams({
+                page: Math.max(searchParams.get("page") - 1, 1),
+              })
+            }
           >
             <IoChevronBackOutline />
             <span>Previous</span>
@@ -29,6 +34,7 @@ function Paginate({ pages }) {
             <li key={page}>
               <Button
                 onClick={() => setSearchParams({ page: page + "" })}
+                className={""}
                 variant={
                   activePage.toString() === page.toString()
                     ? "paginate-active-link"
@@ -41,7 +47,16 @@ function Paginate({ pages }) {
           );
         })}
         <li>
-          <Button role="nav-link" className="ml-1.5" variant={"paginate-link"}>
+          <Button
+            role="nav-link"
+            className="ml-5"
+            variant={"paginate-link"}
+            onClick={() =>
+              setSearchParams({
+                page: Math.min(searchParams.get("page") + 1, pages.length),
+              })
+            }
+          >
             <span>Next</span>
             <IoChevronForwardOutline />
           </Button>
