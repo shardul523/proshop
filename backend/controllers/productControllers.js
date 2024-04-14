@@ -20,7 +20,10 @@ const productFields = [
   "description",
 ];
 const SAMPLE_IMAGE = "/images/sample.jpg";
-const PAGE_SIZE = 4;
+const PAGE_SIZE = {
+  default: 8,
+  search: 12,
+};
 
 /**
  * @description UPLOAD PRODUCT IMAGE
@@ -62,18 +65,19 @@ exports.updateProductImage = catchAsync(async (req, res, next) => {
  */
 exports.getAllProducts = catchAsync(async function (req, res) {
   const { search = "", page = 1 } = req.query;
-  console.log(search, page);
+  // console.log(search, page);
+  const pageSize = search ? PAGE_SIZE.search : PAGE_SIZE.default;
   const nameQuery = { name: { $regex: search, $options: "i" } };
 
   const docCount = await Product.countDocuments(nameQuery);
 
   const products = await Product.find(nameQuery)
-    .limit(PAGE_SIZE)
-    .skip((page - 1) * PAGE_SIZE);
+    .limit(pageSize)
+    .skip((page - 1) * pageSize);
 
   return res
     .status(200)
-    .json({ products, count: Math.ceil(docCount / PAGE_SIZE) });
+    .json({ products, count: Math.ceil(docCount / pageSize) });
 });
 
 /**
@@ -92,6 +96,17 @@ exports.getProductById = catchAsync(async function (req, res, next) {
     status: "success",
     data: { product },
   });
+});
+
+/**
+ * @description Get Top Products
+ * @route       GET /api/v1/products/top
+ * @access      public
+ */
+exports.getTopProducts = catchAsync(async (req, res) => {
+  const products = await Product.find({}).sort({ rating: -1 }).limit(5);
+
+  return res.status(200).json({ products });
 });
 
 /**

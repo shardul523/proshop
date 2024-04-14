@@ -23,7 +23,7 @@ function Header() {
   const toggleOpen = () => setIsOpen((prev) => !prev);
 
   return (
-    <header className="bg-primary-600 text-secondary-200 sticky top-0">
+    <header className="bg-primary-600 text-secondary-200 sticky top-0 z-50">
       <div className="sm:flex justify-between items-center lg:mx-auto py-3 space-y-7 sm:space-y-0 px-10 max-w-screen-xl gap-5">
         <div className="flex justify-between items-center">
           <Link to={"/"} className="text-xl flex items-center">

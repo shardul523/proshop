@@ -32,6 +32,19 @@ export function useAllProducts() {
   return { isPending, allProducts, pageCount };
 }
 
+export function useTopProducts() {
+  const [method, url] = ["GET", `${BASE_URL}/products/top`];
+
+  const { data, isPending } = useQuery({
+    queryKey: ["products", "top"],
+    queryFn: () => api(method, url),
+  });
+
+  const topProducts = data?.products;
+
+  return { topProducts, isPending };
+}
+
 export function useProduct(productId) {
   const {
     data: product,
