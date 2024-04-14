@@ -5,6 +5,7 @@ import { useSearchParams } from "react-router-dom";
 function Paginate({ pages }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const activePage = searchParams.get("page") || 1;
+  const activeSearch = searchParams.get("search") || "";
 
   return (
     <nav
@@ -21,7 +22,8 @@ function Paginate({ pages }) {
             variant={"paginate-link"}
             onClick={() =>
               setSearchParams({
-                page: Math.max(searchParams.get("page") - 1, 1),
+                page: Math.max(activePage - 1, 1),
+                search: activeSearch,
               })
             }
           >
@@ -33,7 +35,7 @@ function Paginate({ pages }) {
           return (
             <li key={page}>
               <Button
-                onClick={() => setSearchParams({ page: page + "" })}
+                onClick={() => setSearchParams({ page, search: activeSearch })}
                 className={""}
                 variant={
                   activePage.toString() === page.toString()
@@ -53,7 +55,8 @@ function Paginate({ pages }) {
             variant={"paginate-link"}
             onClick={() =>
               setSearchParams({
-                page: Math.min(searchParams.get("page") + 1, pages.length),
+                page: Math.min(activePage + 1, pages.length),
+                search: activeSearch,
               })
             }
           >

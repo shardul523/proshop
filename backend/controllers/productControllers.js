@@ -20,6 +20,7 @@ const productFields = [
   "description",
 ];
 const SAMPLE_IMAGE = "/images/sample.jpg";
+const PAGE_SIZE = 4;
 
 /**
  * @description UPLOAD PRODUCT IMAGE
@@ -59,19 +60,20 @@ exports.updateProductImage = catchAsync(async (req, res, next) => {
  * @route         GET /api/v1/products
  * @access        PUBLIC
  */
-exports.getAllProducts = catchAsync(async function (req, res, next) {
-  const pageSize = 4;
-  const docCount = await Product.countDocuments();
+exports.getAllProducts = catchAsync(async function (req, res) {
+  const { search = "", page = 1 } = req.query;
+  console.log(search, page);
+  const nameQuery = { name: { $regex: search, $options: "i" } };
 
-  const pageNumber = req.query.page || 1;
+  const docCount = await Product.countDocuments(nameQuery);
 
-  const products = await Product.find()
-    .limit(pageSize)
-    .skip((pageNumber - 1) * pageSize);
+  const products = await Product.find(nameQuery)
+    .limit(PAGE_SIZE)
+    .skip((page - 1) * PAGE_SIZE);
 
   return res
     .status(200)
-    .json({ products, count: Math.ceil(docCount / pageSize) });
+    .json({ products, count: Math.ceil(docCount / PAGE_SIZE) });
 });
 
 /**

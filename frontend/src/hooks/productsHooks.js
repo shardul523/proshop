@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 
@@ -12,16 +12,20 @@ import { api } from "../utils";
 import { BASE_URL } from "../services/constants.json";
 import { useEffect, useState } from "react";
 
-export function useAllProducts(page) {
-  const [method, url] = ["GET", `${BASE_URL}/products`];
+export function useAllProducts() {
+  const [searchParams] = useSearchParams();
+  const page = searchParams.get("page") || 1;
+  const search = searchParams.get("search") || "";
   const [pageCount, setPageCount] = useState(1);
+
+  const [method, url] = ["GET", `${BASE_URL}/products`];
+
   const { data, isPending } = useQuery({
-    queryKey: ["products", page],
-    queryFn: () => api(method, url, undefined, { page }),
+    queryKey: ["products", page, search],
+    queryFn: () => api(method, url, undefined, { page, search }),
   });
 
   useEffect(() => setPageCount(data?.count), [data?.count]);
-
   const allProducts = data?.products;
   // const pageCount = data?.count;
 

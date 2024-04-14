@@ -13,6 +13,7 @@ import AdminNav from "../admin/AdminNav";
 import { useAllItemsQty } from "../../hooks";
 import { useProfile } from "../../hooks/userHooks";
 import logo from "../../assets/logo.png";
+import SearchBox from "./SearchBox";
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,13 +24,14 @@ function Header() {
 
   return (
     <header className="bg-primary-600 text-secondary-200 sticky top-0">
-      <div className="sm:flex justify-between lg:mx-auto py-3 space-y-7 sm:space-y-0 px-10 max-w-screen-xl">
+      <div className="sm:flex justify-between items-center lg:mx-auto py-3 space-y-7 sm:space-y-0 px-10 max-w-screen-xl gap-5">
         <div className="flex justify-between items-center">
           <Link to={"/"} className="text-xl flex items-center">
             <img src={logo} alt="brand" /> <span>ProShop</span>
           </Link>
           <Hamburger isOpen={isOpen} toggleOpen={toggleOpen} />
         </div>
+        <SearchBox />
         <Navbar isOpen={isOpen}>
           <ul className="flex flex-col sm:flex-row items-start sm:items-center sm:gap-5 space-y-5 sm:space-y-0 ml-3">
             <li className="relative">
